@@ -183,4 +183,9 @@ IStudentDataValidation <|-- StudentDataValidation
 
 ## Pytania do prowadzącego
 
-1. Czy powinien być cały CRUD dla danych studentów, czy powinno być 
+1. Czy powinien być cały CRUD dla danych studentów, czy powinno być jedynie dodawanie studenta.
+
+Wydaje mi się że nawet przy pełnym CRUDzie nie będziemy mieli aż tak dużo pracy.
+
+2. Czy pola z punktami powinny być rozszerzalne, czy jest to stała struktura po której nie spodziewamy się zmian.
+

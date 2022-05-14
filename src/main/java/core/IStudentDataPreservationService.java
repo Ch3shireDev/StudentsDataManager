@@ -3,7 +3,7 @@ package core;
 import java.util.Collection;
 
 interface IStudentDataPreservationService {
-    void save();
+    void save(Collection<StudentData> studentData);
 
     Collection<StudentData> load();
 }

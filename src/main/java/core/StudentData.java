@@ -3,7 +3,7 @@ package core;
 
 public class StudentData {
 
-    private String Album;
+    private final String Album;
     private String Name;
     private String Group;
     private int Homework;
@@ -12,6 +12,10 @@ public class StudentData {
     private int Kolokwium1;
     private int Kolokwium2;
     private int Exam;
+
+    public StudentData(String album) {
+        Album = album;
+    }
 
     public StudentData(String album, String name, String group) {
         Album = album;
@@ -92,4 +96,14 @@ public class StudentData {
         return Homework + Activity + Kolokwium1 + Kolokwium2 + Exam + Project;
     }
 
+    public void set(StudentData studentData) {
+        Name = studentData.Name;
+        Group = studentData.Group;
+        Homework = studentData.Homework;
+        Activity = studentData.Activity;
+        Project = studentData.Project;
+        Kolokwium1 = studentData.Kolokwium1;
+        Kolokwium2 = studentData.Kolokwium2;
+        Exam = studentData.Exam;
+    }
 }
