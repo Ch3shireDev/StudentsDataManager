@@ -1,109 +1,234 @@
 package core;
 
 
-public class StudentData {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-    private final String Album;
-    private String Name;
-    private String Group;
-    private int Homework;
-    private int Activity;
-    private int Project;
-    private int Kolokwium1;
-    private int Kolokwium2;
-    private int Exam;
+import java.io.Serializable;
 
+public class StudentData implements Serializable {
+
+    private String album;
+    private String name;
+    private String group;
+    private int homeworkPoints;
+    private int activityPoints;
+    private int projectPoints;
+    private int test1Points;
+    private int test2Points;
+    private int examPoints;
+
+    public StudentData() {
+    }
+
+    /**
+     * Konstruktor obiektu StudentData.
+     *
+     * @param album Numer albumu (unikalny).
+     */
     public StudentData(String album) {
-        Album = album;
+        this.album = album;
     }
 
+    /**
+     * Konstruktor klonujący dane studenta. Tworzy nowy obiekt o identycznych parametrach, razem z numerem albumu.
+     *
+     * @param studentData Dane studenta.
+     */
+    public StudentData(StudentData studentData) {
+        this.album = studentData.album;
+        name = studentData.name;
+        group = studentData.group;
+        homeworkPoints = studentData.homeworkPoints;
+        activityPoints = studentData.activityPoints;
+        projectPoints = studentData.projectPoints;
+        test1Points = studentData.test1Points;
+        test2Points = studentData.test2Points;
+        examPoints = studentData.examPoints;
+    }
+
+    /**
+     * Konstruktor obiektu Studentdata.
+     *
+     * @param album Numer albumu (unikalny).
+     * @param name  Imię i nazwisko studenta.
+     * @param group Grupa zajęciowa.
+     */
     public StudentData(String album, String name, String group) {
-        Album = album;
-        Name = name;
-        Group = group;
+        this.album = album;
+        this.name = name;
+        this.group = group;
     }
 
+    public StudentData(String album, String name, String group, int homeworkPoints, int activityPoints, int projectPoints, int test1Points, int test2Points, int examPoints) {
+        this.album = album;
+        this.name = name;
+        this.group = group;
+        this.homeworkPoints = homeworkPoints;
+        this.activityPoints = activityPoints;
+        this.projectPoints = projectPoints;
+        this.test1Points = test1Points;
+        this.test2Points = test2Points;
+        this.examPoints = examPoints;
+    }
+
+    /**
+     * @return Numer albumu studenta (unikalny).
+     */
     public String getAlbum() {
-        return Album;
+        return album;
     }
 
 
+    /**
+     * @return Imię i nazwisko studenta.
+     */
     public String getName() {
-        return Name;
+        return name;
     }
 
+    /**
+     * Ustawia imię i nazwisko studenta.
+     *
+     * @param name Imię i nazwisko studenta
+     */
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
+    /**
+     * @return Grupa zajęciowa.
+     */
     public String getGroup() {
-        return Group;
+        return group;
     }
 
+    /**
+     * Ustawia grupę zajęciową studenta.
+     *
+     * @param group Grupa zajęciowa studenta.
+     */
     public void setGroup(String group) {
-        Group = group;
+        this.group = group;
     }
 
-    public int getHomework() {
-        return Homework;
+    /**
+     * @return Liczba punktów z prac domowych.
+     */
+    public int getHomeworkPoints() {
+        return homeworkPoints;
     }
 
-    public void setHomework(int homework) {
-        Homework = homework;
+    /**
+     * Ustawia liczbę punktów z prac domowych (0-5 pkt).
+     *
+     * @param homeworkPoints Liczba punktów z prac domowych.
+     */
+    public void setHomeworkPoints(int homeworkPoints) {
+        this.homeworkPoints = homeworkPoints;
     }
 
-    public int getActivity() {
-        return Activity;
+    /**
+     * @return Liczba punktów za aktywność.
+     */
+    public int getActivityPoints() {
+        return activityPoints;
     }
 
-    public void setActivity(int activity) {
-        Activity = activity;
+    /**
+     * Ustawia liczbę punktów za aktywność (0-5 pkt).
+     *
+     * @param activityPoints Liczba punktów za aktywność.
+     */
+    public void setActivityPoints(int activityPoints) {
+        this.activityPoints = activityPoints;
     }
 
-    public int getProject() {
-        return Project;
+    /**
+     * @return Liczba punktów z projektu.
+     */
+    public int getProjectPoints() {
+        return projectPoints;
     }
 
-    public void setProject(int project) {
-        Project = project;
+    /**
+     * Ustawia liczbę punktów z projektu (0-10 pkt).
+     *
+     * @param projectPoints Liczba punktów z projektu.
+     */
+    public void setProjectPoints(int projectPoints) {
+        this.projectPoints = projectPoints;
     }
 
-    public int getKolokwium1() {
-        return Kolokwium1;
+    /**
+     * @return Liczba punktów z pierwszego kolokwium.
+     */
+    public int getTest1Points() {
+        return test1Points;
     }
 
-    public void setKolokwium1(int kolokwium1) {
-        Kolokwium1 = kolokwium1;
+    /**
+     * Ustawia liczbę punktów z pierwszego kolokwium (0-20 pkt).
+     *
+     * @param test1Points Liczba punktów z pierwszego kolokwium.
+     */
+    public void setTest1Points(int test1Points) {
+        this.test1Points = test1Points;
     }
 
-    public int getKolokwium2() {
-        return Kolokwium2;
+    /**
+     * @return Liczba punktów z drugiego kolokwium.
+     */
+    public int getTest2Points() {
+        return test2Points;
     }
 
-    public void setKolokwium2(int kolokwium2) {
-        Kolokwium2 = kolokwium2;
+    /**
+     * Ustawia liczbę punktów z drugiego kolokwium (0-20 pkt).
+     *
+     * @param test2Points Liczba punktów z drugiego kolokwium.
+     */
+    public void setTest2Points(int test2Points) {
+        this.test2Points = test2Points;
     }
 
-    public int getExam() {
-        return Exam;
+    /**
+     * @return Liczba punktów z egzaminu.
+     */
+    public int getExamPoints() {
+        return examPoints;
     }
 
-    public void setExam(int exam) {
-        Exam = exam;
+    /**
+     * Ustawia liczbę punktów z egzaminu (0-40 pkt).
+     *
+     * @param examPoints Liczba punktów z egzaminu.
+     */
+    public void setExamPoints(int examPoints) {
+        this.examPoints = examPoints;
     }
 
+    /**
+     * @return Całkowita suma punktów.
+     */
+    @JsonIgnore
     public int getSum() {
-        return Homework + Activity + Kolokwium1 + Kolokwium2 + Exam + Project;
+        return homeworkPoints + activityPoints + test1Points + test2Points + examPoints + projectPoints;
     }
 
+
+    /**
+     * Przypisuje wszystkie wartości z obiektu poza numerem albumu.
+     *
+     * @param studentData Dane studenta.
+     */
     public void set(StudentData studentData) {
-        Name = studentData.Name;
-        Group = studentData.Group;
-        Homework = studentData.Homework;
-        Activity = studentData.Activity;
-        Project = studentData.Project;
-        Kolokwium1 = studentData.Kolokwium1;
-        Kolokwium2 = studentData.Kolokwium2;
-        Exam = studentData.Exam;
+        name = studentData.name;
+        group = studentData.group;
+        homeworkPoints = studentData.homeworkPoints;
+        activityPoints = studentData.activityPoints;
+        projectPoints = studentData.projectPoints;
+        test1Points = studentData.test1Points;
+        test2Points = studentData.test2Points;
+        examPoints = studentData.examPoints;
     }
 }
