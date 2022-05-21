@@ -215,7 +215,6 @@ public class StudentData implements Serializable {
         return homeworkPoints + activityPoints + test1Points + test2Points + examPoints + projectPoints;
     }
 
-
     /**
      * Przypisuje wszystkie wartości z obiektu poza numerem albumu.
      *

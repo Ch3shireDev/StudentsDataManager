@@ -1,7 +1,7 @@
 import core.IStudentDataService;
 import core.StudentData;
 import core.StudentDataService;
-import mockups.MockPreservationService;
+import mockups.MockPersistentStorageService;
 import mockups.MockValidatorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,22 +12,22 @@ import java.util.Collection;
 /**
  * Zestaw testów dla serwisu StudentDataService.
  */
-class StudentDataServiceTest {
+class StudentDataServiceTests {
 
     IStudentDataService service;
-    MockPreservationService preservationService;
+    MockPersistentStorageService preservationService;
     MockValidatorService validationService;
 
     /**
      * Przygotowuje środowisko testowe. Tworzy dane trzech przykładowych studentów.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @BeforeEach
     void setUp() throws Exception {
-        preservationService = new MockPreservationService();
+        preservationService = new MockPersistentStorageService();
         validationService = new MockValidatorService();
-        service = new StudentDataService(preservationService, validationService);
+        service = new StudentDataService(validationService);
         service.add(new StudentData("111", "Jan Kowalski", "IZ06IO1"));
         service.add(new StudentData("112", "Anna Rub", "IZ06IO2"));
         service.add(new StudentData("113", "Adam Adamowski", "IZ06IO1"));
@@ -38,7 +38,7 @@ class StudentDataServiceTest {
      * Funkcja powinna zwracać kopię danych trzech studentów.
      * Nie powinno być możliwe modyfikowanie danych studentów z bazy danych.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void getAll() throws Exception {
@@ -70,7 +70,7 @@ class StudentDataServiceTest {
     /**
      * Sprawdzamy dzialanie funkcji update - powinna pozwalać na modyfikację nazwiska studenta.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void update() throws Exception {
@@ -82,7 +82,7 @@ class StudentDataServiceTest {
     /**
      * Sprawdzamy działanie funkcji delete - powinna kasować dane studenta z serwisu.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void delete() throws Exception {
@@ -95,7 +95,7 @@ class StudentDataServiceTest {
      * Sprawdzamy działanie funkcji add - powinna dodawać dane nowego studenta.
      * Powinna też zwracać błąd w przypadku próby dodania dwa razy danych studenta o tym samym numerze albumu.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void add() throws Exception {
@@ -113,12 +113,12 @@ class StudentDataServiceTest {
     /**
      * Sprawdzamy działanie funkcji save - powinna wywoływać save w serwisie preservationService.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void save() throws Exception {
         Assertions.assertEquals(0, preservationService.getSavedStudentData().size());
-        service.save();
+        service.save(preservationService);
         Assertions.assertEquals(3, preservationService.getSavedStudentData().size());
     }
 
@@ -126,14 +126,14 @@ class StudentDataServiceTest {
      * Sprawdzamy działanie funkcji load - powinna wywoływać load w serwisie preservationService
      * i przywracać zapisany stan serwisu danych studentów.
      *
-     * @throws Exception
+     * @throws Exception Standardowy wyjątek.
      */
     @Test
     void load() throws Exception {
-        service.save();
+        service.save(preservationService);
         service.clear();
         Assertions.assertEquals(0, service.size());
-        service.load();
+        service.load(preservationService);
         Assertions.assertEquals(3, service.size());
     }
 

@@ -6,14 +6,18 @@ import java.util.Arrays;
 import java.util.Collection;
 
 
-public class StudentDataPreservationService implements IStudentDataPreservationService {
+public class StudentDataPersistentStorageService implements IStudentDataPersistentStorageService {
 
     private final IFilesystemService filesystemService;
     private final String filename;
 
-    public StudentDataPreservationService(IFilesystemService filesystemService) {
+    public StudentDataPersistentStorageService(String filename, IFilesystemService filesystemService) {
         this.filesystemService = filesystemService;
-        this.filename = "data.json";
+        this.filename = filename;
+    }
+
+    public StudentDataPersistentStorageService(String filename) {
+        this(filename, new FilesystemService());
     }
 
     public void save(Collection<StudentData> studentData) throws Exception {
@@ -29,6 +33,7 @@ public class StudentDataPreservationService implements IStudentDataPreservationS
         }
     }
 
+    @Override
     public Collection<StudentData> load() throws Exception {
         try {
             String json = filesystemService.read(filename);

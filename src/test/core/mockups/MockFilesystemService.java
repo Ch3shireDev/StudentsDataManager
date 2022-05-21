@@ -4,6 +4,9 @@ import core.IFilesystemService;
 
 import java.io.IOException;
 
+/**
+ * Mockowy serwis systemu plików. Zapisuje i odczytuje treść do zmiennej content.
+ */
 public class MockFilesystemService implements IFilesystemService {
 
     public String filename;

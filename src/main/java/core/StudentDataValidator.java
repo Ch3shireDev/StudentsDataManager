@@ -44,7 +44,7 @@ public class StudentDataValidator implements IStudentDataValidator {
     @Override
     public boolean validateAlbum(String album) {
         if (album == null) return false;
-        if (album == "") return false;
+        if (album.equals("")) return false;
         return album.matches("\\d+");
     }
 

@@ -1,9 +1,11 @@
 package gui;
+
 import javax.swing.*;
 
-public class MainWindow extends JFrame  {
+public class MainWindow extends JFrame {
 
     static JFrame frame;
+
     public static void main(String[] args) {
         frame = new JFrame(LocalisationUtil.getText("window.title"));
 

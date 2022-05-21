@@ -1,16 +1,16 @@
 package mockups;
 
-import core.IStudentDataPreservationService;
+import core.IStudentDataPersistentStorageService;
 import core.StudentData;
 
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class MockPreservationService implements IStudentDataPreservationService {
+public class MockPersistentStorageService implements IStudentDataPersistentStorageService {
 
     Collection<StudentData> students;
 
-    public MockPreservationService() {
+    public MockPersistentStorageService() {
         students = new LinkedList<>();
     }
 

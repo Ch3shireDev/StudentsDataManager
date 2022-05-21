@@ -2,18 +2,22 @@ package core;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Serwis danych studentów.
+ */
 public class StudentDataService implements IStudentDataService {
 
-    private final IStudentDataPreservationService preservationService;
+    //private final IStudentDataPersistenceIO preservationService;
     private final Collection<StudentData> students;
     private final IStudentDataValidator validatorService;
 
-    public StudentDataService(IStudentDataPreservationService preservationService, IStudentDataValidator validatorService) {
+    public StudentDataService(IStudentDataValidator validatorService) {
         students = new LinkedList<>();
-        this.preservationService = preservationService;
+        //this.preservationService = preservationService;
         this.validatorService = validatorService;
     }
 
@@ -26,7 +30,7 @@ public class StudentDataService implements IStudentDataService {
      */
     public StudentData get(String album) throws Exception {
         if (students == null) throw new Exception("Lista studentów jest pustym obiektem.");
-        Optional<StudentData> sd = students.stream().filter(s -> s.getAlbum() == album).findFirst();
+        Optional<StudentData> sd = students.stream().filter(s -> Objects.equals(s.getAlbum(), album)).findFirst();
         if (sd.isEmpty()) throw new Exception(String.format("Brak studenta o numerze albumu %s", album));
         return sd.get();
     }
@@ -59,7 +63,7 @@ public class StudentDataService implements IStudentDataService {
     @Override
     public Collection<StudentData> getAll() throws Exception {
         if (students == null) throw new Exception("Lista studentów jest pustym obiektem.");
-        return students.stream().map(s -> new StudentData(s)).collect(Collectors.toList());
+        return students.stream().map(StudentData::new).collect(Collectors.toList());
     }
 
     /**
@@ -98,7 +102,7 @@ public class StudentDataService implements IStudentDataService {
      */
     public boolean exists(String album) throws Exception {
         if (students == null) throw new Exception("Lista studentów jest pustym obiektem.");
-        return students.stream().anyMatch(studentData1 -> studentData1.getAlbum() == album);
+        return students.stream().anyMatch(studentData1 -> Objects.equals(studentData1.getAlbum(), album));
     }
 
     /**
@@ -126,7 +130,7 @@ public class StudentDataService implements IStudentDataService {
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
     @Override
-    public void save() throws Exception {
+    public void save(IStudentDataPersistentStorageService preservationService) throws Exception {
         preservationService.save(students);
     }
 
@@ -137,7 +141,7 @@ public class StudentDataService implements IStudentDataService {
      * @throws Exception Wyjątek w przypadku błędu ładowania danych z serwisu danych trwałych.
      */
     @Override
-    public void load() throws Exception {
+    public void load(IStudentDataPersistentStorageService preservationService) throws Exception {
         if (students == null) throw new Exception("Lista studentów jest pustym obiektem.");
         Collection<StudentData> loadedData = preservationService.load();
         students.clear();

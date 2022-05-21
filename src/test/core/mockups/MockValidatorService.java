@@ -3,6 +3,9 @@ package mockups;
 import core.IStudentDataValidator;
 import core.StudentData;
 
+/**
+ * Mockowy serwis walidujący dane.
+ */
 public class MockValidatorService implements IStudentDataValidator {
 
     public boolean isUsed = false;
