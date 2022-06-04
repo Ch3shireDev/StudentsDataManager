@@ -20,9 +20,10 @@ public class FilesystemService implements IFilesystemService {
      */
     @Override
     public void write(String filename, String content) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-        writer.write(content);
-        writer.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write(content);
+            writer.flush();
+        };
     }
 
     /**

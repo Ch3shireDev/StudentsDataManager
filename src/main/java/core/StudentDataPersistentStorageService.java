@@ -9,38 +9,32 @@ import java.util.Collection;
 public class StudentDataPersistentStorageService implements IStudentDataPersistentStorageService {
 
     private final IFilesystemService filesystemService;
-    private final String filename;
 
-    public StudentDataPersistentStorageService(String filename, IFilesystemService filesystemService) {
+    public StudentDataPersistentStorageService(IFilesystemService filesystemService) {
         this.filesystemService = filesystemService;
-        this.filename = filename;
     }
 
-    public StudentDataPersistentStorageService(String filename) {
-        this(filename, new FilesystemService());
-    }
 
-    public void save(Collection<StudentData> studentData) throws Exception {
+    public void save(String filename,Collection<StudentData> studentData) throws Exception {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper
                     .writerWithDefaultPrettyPrinter()
                     .writeValueAsString(studentData);
             filesystemService.write(filename, jsonInString);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception(String.format("Błąd zapisu danych. Informacja o błędzie: %s", e.getMessage()));
         }
     }
 
+
     @Override
-    public Collection<StudentData> load() throws Exception {
+    public Collection<StudentData> load(String filename) throws Exception {
         try {
             String json = filesystemService.read(filename);
             ObjectMapper mapper = new ObjectMapper();
             return Arrays.asList(mapper.readValue(json, StudentData[].class));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new Exception(String.format("Błąd odczytu danych. Informacja o błędzie: %s", e.getMessage()));
         }
     }
