@@ -1,7 +1,5 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.StudentData;
-import core.StudentDataPersistentStorageService;
-import core.StudentDataService;
+import core.*;
 import mockups.MockFilesystemService;
 import mockups.MockValidatorService;
 import org.junit.jupiter.api.Assertions;
@@ -14,14 +12,14 @@ import org.junit.jupiter.api.Test;
  */
 class StudentDataPersistentStorageServiceTests {
     MockFilesystemService filesystemService;
-    StudentDataPersistentStorageService preservationService;
-    MockValidatorService validatorService;
-    StudentDataService studentDataService;
+    IStudentDataPersistentStorageService preservationService;
+    IStudentDataValidator validatorService;
+    IStudentDataService studentDataService;
 
     @BeforeEach
     void setup() throws Exception {
         filesystemService = new MockFilesystemService();
-        preservationService = new StudentDataPersistentStorageService("a.txt", filesystemService);
+        preservationService = new StudentDataPersistentStorageService("a.json", filesystemService);
         validatorService = new MockValidatorService();
 
         studentDataService = new StudentDataService(validatorService);

@@ -12,12 +12,12 @@ public interface IStudentDataPersistentStorageService {
      * @param studentData Dane studentów w postaci kolekcji.
      * @throws Exception Wyjątek wyrzucany w przypadku błędu zapisu danych w serwisie.
      */
-    void save(String filename, Collection<StudentData> studentData) throws Exception;
+    void save(Collection<StudentData> studentData) throws Exception;
 
     /**
      * @return Dane studentów w postaci kolekcji.
      * @throws Exception Wyjątek wyrzucany w przypadku błędu odczytu danych w serwisie.
      */
-    Collection<StudentData> load(String file) throws Exception;
+    Collection<StudentData> load() throws Exception;
 }
 

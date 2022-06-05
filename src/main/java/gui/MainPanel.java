@@ -9,6 +9,10 @@ import javax.swing.table.TableModel;
 import java.util.Locale;
 
 public class MainPanel {
+    private final IFilesystemService filesystemService = new FilesystemService();
+    private final IStudentDataValidator validatorService = new StudentDataValidator();
+    private final IStudentDataService studentDataService = new StudentDataService(validatorService);
+    private final IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService("a.json", filesystemService);
     private JComboBox<String> langSelect;
     private JTable table1;
     private JPanel mainPanel;
@@ -22,11 +26,6 @@ public class MainPanel {
     private JTextField groupTF;
     private JButton addStudentbtn;
     private MainPanel mainPanel1;
-    private final IStudentDataService studentDataService = new StudentDataService(
-            new MockStudentDataValidator(),
-            new StudentDataPersistentStorageService(new FilesystemService()));
-
-    private final IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(new FilesystemService());
 
     public MainPanel(JFrame frame) {
         Object[][] data = getData();
@@ -55,15 +54,12 @@ public class MainPanel {
             if (ACTION_RESULT == JFileChooser.APPROVE_OPTION) {
                 // set the label to the path of the selected file
                 String filename = fileChooser.getSelectedFile().getAbsolutePath();
+                IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService("filename", filesystemService);
                 try {
-                    var x = storageService.load(filename);
-                    studentDataService.clear();
-                    for (StudentData studentData : x) {
-                        studentDataService.add(studentData);
-                    }
-
+                    studentDataService.load(storageService);
                     table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     //
                 }
             }
@@ -79,9 +75,11 @@ public class MainPanel {
             if (ACTION_RESULT == JFileChooser.APPROVE_OPTION) {
                 // set the label to the path of the selected file
                 String filename = fileChooser.getSelectedFile().getAbsolutePath();
+                IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
-                    studentDataService.save(filename);
-                } catch (Exception e) {
+                    studentDataService.save(storageService);
+                }
+                catch (Exception e) {
                     //
                 }
             }
@@ -97,21 +95,11 @@ public class MainPanel {
             try {
                 studentDataService.add(studentData);
                 table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 JOptionPane.showMessageDialog(frame, "Błąd podczas dodawania nowego studenta!", "Błąd!", 0);
             }
         });
-    }
-
-    private Object[][] getData() {
-        Object[][] data;
-        try {
-            data = StudentDataConverter.convertToViewModel(studentDataService.getAll());
-            return data;
-        } catch (Exception e) {
-            //show error dialog
-            return new Object[0][0];
-        }
     }
 
     public static void main(String[] args) {
@@ -122,6 +110,18 @@ public class MainPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    private Object[][] getData() {
+        Object[][] data;
+        try {
+            data = StudentDataConverter.convertToViewModel(studentDataService.getAll());
+            return data;
+        }
+        catch (Exception e) {
+            //show error dialog
+            return new Object[0][0];
+        }
     }
 
 }

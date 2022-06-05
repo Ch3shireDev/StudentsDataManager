@@ -11,13 +11,10 @@ import java.util.stream.Collectors;
  */
 public class StudentDataService implements IStudentDataService {
 
-    private final IStudentDataPersistentStorageService preservationService;
     private static final Collection<StudentData> students  = new LinkedList<>();;
     private final IStudentDataValidator validatorService;
 
-    public StudentDataService(IStudentDataValidator validatorService,
-                              IStudentDataPersistentStorageService preservationService) {
-        this.preservationService = preservationService;
+    public StudentDataService(IStudentDataValidator validatorService) {
         this.validatorService = validatorService;
     }
 
@@ -123,22 +120,23 @@ public class StudentDataService implements IStudentDataService {
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
     @Override
-    public void save(String filename) throws Exception {
-        preservationService.save(filename, students);
+    public void save(IStudentDataPersistentStorageService preservationService) throws Exception {
+        preservationService.save(students);
     }
 
-//    /**
-//     * Ładuje dane studentów z serwisu danych trwałych.
-//     *
-//     * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
-//     * @throws Exception Wyjątek w przypadku błędu ładowania danych z serwisu danych trwałych.
-//     */
-//    @Override
-//    public void load(IStudentDataPersistentStorageService preservationService) throws Exception {
-//        Collection<StudentData> loadedData = preservationService.load();
-//        students.clear();
-//        students.addAll(loadedData);
-//    }
+
+    /**
+     * Ładuje dane studentów z serwisu danych trwałych.
+     *
+     * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
+     * @throws Exception Wyjątek w przypadku błędu ładowania danych z serwisu danych trwałych.
+     */
+    @Override
+    public void load(IStudentDataPersistentStorageService preservationService) throws Exception {
+        Collection<StudentData> loadedData = preservationService.load();
+        students.clear();
+        students.addAll(loadedData);
+    }
 
     /**
      * Waliduje dane studenta.

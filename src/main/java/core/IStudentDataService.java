@@ -42,14 +42,15 @@ public interface IStudentDataService {
      *
      * @throws Exception Wyjątek w przypadku błędu zapisu w zewnętrznym serwisie.
      */
-    void save(String filename) throws Exception;
+    void save(IStudentDataPersistentStorageService storageService) throws Exception;
 
     /**
      * Ładuje dane studentów.
      *
      * @throws Exception Wyjątek w przypadku błędu ładowania z zewnętrznego serwisu.
      */
-//    void load(IStudentDataPersistentStorageService reader) throws Exception;
+    void load(IStudentDataPersistentStorageService reader) throws Exception;
+
 
     /**
      * Pobiera dane studenta na podstawie numeru albumu.
@@ -92,4 +93,5 @@ public interface IStudentDataService {
      * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validate(StudentData studentData) throws ValidationException;
+
 }

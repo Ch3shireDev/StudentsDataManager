@@ -141,7 +141,7 @@ class StudentDataServiceTests {
      * Sprawdzamy działanie funkcji validate - powinna ona odwoływać się do wewnętrznego serwisu IStudentDataValidator.
      */
     @Test
-    void validate() {
+    void validate() throws  Exception {
         validationService.isUsed = false;
         service.validate(new StudentData("111"));
         Assertions.assertTrue(validationService.isUsed);

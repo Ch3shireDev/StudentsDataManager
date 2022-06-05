@@ -9,13 +9,15 @@ import java.util.Collection;
 public class StudentDataPersistentStorageService implements IStudentDataPersistentStorageService {
 
     private final IFilesystemService filesystemService;
+    private final String filename;
 
-    public StudentDataPersistentStorageService(IFilesystemService filesystemService) {
+    public StudentDataPersistentStorageService(String filename, IFilesystemService filesystemService) {
         this.filesystemService = filesystemService;
+        this.filename = filename;
     }
 
 
-    public void save(String filename,Collection<StudentData> studentData) throws Exception {
+    public void save(Collection<StudentData> studentData) throws Exception {
         try {
             ObjectMapper mapper = new ObjectMapper();
             String jsonInString = mapper
@@ -29,7 +31,7 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
 
 
     @Override
-    public Collection<StudentData> load(String filename) throws Exception {
+    public Collection<StudentData> load() throws Exception {
         try {
             String json = filesystemService.read(filename);
             ObjectMapper mapper = new ObjectMapper();

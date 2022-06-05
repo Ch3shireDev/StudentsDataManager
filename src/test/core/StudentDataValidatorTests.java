@@ -19,7 +19,7 @@ class StudentDataValidatorTests {
      * Poprawne dane studenta spełniają wszystkie testy walidacyjne.
      */
     @Test
-    void validate() {
+    void validate() throws Exception {
         Assertions.assertTrue(validator.validate(new StudentData("111", "Jan Nowak", "IZ06IO1", 0, 0, 0, 0, 0, 0)));
         Assertions.assertTrue(validator.validate(new StudentData("111", "Jan Nowak", "IZ06IO1", 5, 5, 10, 20, 20, 40)));
         Assertions.assertFalse(validator.validate(new StudentData("111a", "Jan Nowak", "IZ06IO1", 5, 5, 10, 20, 20, 40)));
