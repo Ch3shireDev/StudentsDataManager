@@ -48,6 +48,7 @@ public interface IStudentDataService {
     /**
      * Ładuje dane studentów.
      *
+     * @param reader Obiekt przechowywania danych z którego są czytane dane studentów.
      * @throws Exception Wyjątek w przypadku błędu ładowania z zewnętrznego serwisu.
      */
     void load(IStudentDataPersistentStorageService reader) throws Exception;
@@ -93,6 +94,6 @@ public interface IStudentDataService {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
-    boolean validate(StudentData studentData) throws ValidationException;
+    boolean validate(StudentData studentData);
 
 }

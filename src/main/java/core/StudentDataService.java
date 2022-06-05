@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
  */
 public class StudentDataService implements IStudentDataService {
 
-    private final Collection<StudentData> students  = new LinkedList<>();;
+    private final Collection<StudentData> students = new LinkedList<>();
+    ;
     private final IStudentDataValidator validatorService;
 
     public StudentDataService(IStudentDataValidator validatorService) {
@@ -100,16 +101,16 @@ public class StudentDataService implements IStudentDataService {
      * Dodaje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
-     * @throws Exception Wyjątek w przypadku próby dodania studenta z istniejącym w bazie numerem albumu.
-     * @throws Exception Wyjątek w przypadku próby dodania studenta z niepoprawnymi danymi.
+     * @throws ValidationException Wyjątek w przypadku błędu połączenia z listą studentów.
+     * @throws ValidationException Wyjątek w przypadku próby dodania studenta z istniejącym w bazie numerem albumu.
+     * @throws ValidationException Wyjątek w przypadku próby dodania studenta z niepoprawnymi danymi.
      */
     @Override
     public void add(StudentData studentData) throws ValidationException {
         if (!validate(studentData)) throw new ValidationException(LocalizationUtil.getText("invalidData"));
         String album = studentData.getAlbum();
         if (exists(album)) {
-            throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"),album)));
+            throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"), album)));
         }
         students.add(studentData);
     }
@@ -146,7 +147,7 @@ public class StudentDataService implements IStudentDataService {
      * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
-    public boolean validate(StudentData studentData) throws ValidationException {
+    public boolean validate(StudentData studentData) {
         if (validatorService == null) return true;
         return validatorService.validate(studentData);
     }
