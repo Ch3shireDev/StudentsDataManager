@@ -13,7 +13,6 @@ public class MainPanel {
     private final IFilesystemService filesystemService = new FilesystemService();
     private final IStudentDataValidator validatorService = new StudentDataValidator();
     private final IStudentDataService studentDataService = new StudentDataService(validatorService);
-    private final IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService("a.json", filesystemService);
     private JComboBox<String> langSelect;
     private JTable table1;
     private JPanel mainPanel;
@@ -98,6 +97,7 @@ public class MainPanel {
                 table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
             }
             catch (Exception e) {
+                // TODO: Internationalization.
                 JOptionPane.showMessageDialog(frame, "Błąd podczas dodawania nowego studenta!", "Błąd!", 0);
             }
         });
