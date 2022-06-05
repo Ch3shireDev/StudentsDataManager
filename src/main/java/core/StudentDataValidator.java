@@ -1,10 +1,17 @@
 package core;
 
 
+import common.LocalizationUtil;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Serwis walidujący dane studenta.
  */
 public class StudentDataValidator implements IStudentDataValidator {
+
 
     /**
      * Waliduje dane studenta.
@@ -12,7 +19,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
-    public boolean validate(StudentData studentData) throws ValidationException {
+    public boolean validate(StudentData studentData) {
         if (!validateAlbum(studentData.getAlbum())) return false;
         if (!validateName(studentData.getName())) return false;
         if (!validateGroup(studentData.getGroup())) return false;
@@ -126,6 +133,29 @@ public class StudentDataValidator implements IStudentDataValidator {
     @Override
     public boolean validateExamPoints(int examPoints) {
         return examPoints >= 0 && examPoints <= 40;
+    }
+
+
+    /**
+     * Zwraca informacje na temat nieprawidłowości w danych studenta.
+     *
+     * @param studentData Dane studenta.
+     * @return Lista informacji o nieprawidłowościach.
+     */
+    @Override
+    public Collection<String> getMessages(StudentData studentData) {
+        List<String> list = new ArrayList<String>();
+        if (!validateAlbum(studentData.getAlbum())) list.add(LocalizationUtil.getText("invalidAlbumMessage"));
+        if (!validateName(studentData.getName())) list.add(LocalizationUtil.getText("invalidNameMessage"));
+        if (!validateGroup(studentData.getGroup())) list.add(LocalizationUtil.getText("invalidGroupMessage"));
+        if (!validateHomeworkPoints(studentData.getHomeworkPoints())) list.add(LocalizationUtil.getText("invalidHomeworkPointsMessage"));
+        if (!validateActivityPoints(studentData.getActivityPoints())) list.add(LocalizationUtil.getText("invalidActivityPointsMessage"));
+        if (!validateProjectPoints(studentData.getProjectPoints())) list.add(LocalizationUtil.getText("invalidProjectPointsMessage"));
+        if (!validateTest1Points(studentData.getTest1Points())) list.add(LocalizationUtil.getText("invalidTest1PointsMessage"));
+        if (!validateTest2Points(studentData.getTest2Points())) list.add(LocalizationUtil.getText("invalidTest2PointsMessage"));
+        if (!validateExamPoints(studentData.getExamPoints())) list.add(LocalizationUtil.getText("invalidExamPointsMessage"));
+        return list;
+
     }
 }
 

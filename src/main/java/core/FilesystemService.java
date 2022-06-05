@@ -11,8 +11,6 @@ import java.nio.file.Paths;
  */
 public class FilesystemService implements IFilesystemService {
 
-    private String filename;
-
     /**
      * @param filename Nazwa pliku.
      * @param content  Zawartość pliku.
@@ -33,7 +31,6 @@ public class FilesystemService implements IFilesystemService {
      */
     @Override
     public String read(String filename) throws IOException {
-        this.filename = filename;
         return new String(Files.readAllBytes(Paths.get(filename)));
     }
 }

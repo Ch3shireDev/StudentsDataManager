@@ -1,9 +1,19 @@
 package core;
 
+import java.util.Collection;
+
 /**
  * Serwis walidujący dane studenta.
  */
 public interface IStudentDataValidator {
+
+
+    /**
+     * Zwraca informacje na temat problemów z obiektem danych studenta.
+     * @param studentData Dane studenta do walidacji.
+     * @return Lista powiadomień o błędach.
+     */
+    Collection<String> getMessages(StudentData studentData);
 
     /**
      * Waliduje dane studenta.
@@ -11,7 +21,7 @@ public interface IStudentDataValidator {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
-    boolean validate(StudentData studentData) throws ValidationException;
+    boolean validate(StudentData studentData);
 
     /**
      * Waliduje numer albumu.

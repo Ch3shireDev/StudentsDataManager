@@ -1,5 +1,6 @@
 package gui;
 
+import common.LocalizationUtil;
 import core.*;
 import gui.model.StudentDataViewTableModel;
 
@@ -35,14 +36,14 @@ public class MainPanel {
         langSelect.addItem("EN");
         langSelect.setSelectedIndex(1);
 
-        langSelectLabel.setText(LocalisationUtil.getText("langSelectLabel"));
+        langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
         langSelect.addActionListener(e -> {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
-            LocalisationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
+            LocalizationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
             table1.setModel(new StudentDataViewTableModel(data, studentDataService));
-            langSelectLabel.setText(LocalisationUtil.getText("langSelectLabel"));
-            loadbutton.setText(LocalisationUtil.getText("loadButton"));
-            saveButton.setText(LocalisationUtil.getText("saveButton"));
+            langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
+            loadbutton.setText(LocalizationUtil.getText("loadButton"));
+            saveButton.setText(LocalizationUtil.getText("saveButton"));
         });
         loadbutton.addActionListener(event -> {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
