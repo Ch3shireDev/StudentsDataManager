@@ -91,5 +91,5 @@ public interface IStudentDataService {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
-    boolean validate(StudentData studentData);
+    boolean validate(StudentData studentData) throws ValidationException;
 }

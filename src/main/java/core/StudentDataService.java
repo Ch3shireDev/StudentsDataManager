@@ -12,12 +12,11 @@ import java.util.stream.Collectors;
 public class StudentDataService implements IStudentDataService {
 
     private final IStudentDataPersistentStorageService preservationService;
-    private final Collection<StudentData> students;
+    private static final Collection<StudentData> students  = new LinkedList<>();;
     private final IStudentDataValidator validatorService;
 
     public StudentDataService(IStudentDataValidator validatorService,
                               IStudentDataPersistentStorageService preservationService) {
-        students = new LinkedList<>();
         this.preservationService = preservationService;
         this.validatorService = validatorService;
     }
@@ -95,7 +94,7 @@ public class StudentDataService implements IStudentDataService {
      * @return Prawda jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
-    public boolean exists(String album) throws Exception {
+    public boolean exists(String album) {
         return students.stream().anyMatch(studentData1 -> Objects.equals(studentData1.getAlbum(), album));
     }
 
@@ -108,11 +107,12 @@ public class StudentDataService implements IStudentDataService {
      * @throws Exception Wyjątek w przypadku próby dodania studenta z niepoprawnymi danymi.
      */
     @Override
-    public void add(StudentData studentData) throws Exception {
-        if (!validate(studentData)) throw new Exception("Niepoprawne dane.");
+    public void add(StudentData studentData) throws ValidationException {
+        if (!validate(studentData)) throw new ValidationException("Niepoprawne dane.");
         String album = studentData.getAlbum();
         if (exists(album)) {
-            throw new Exception(String.format("Student o numerze albumu %s już istnieje.", album));
+            //todo internationalize
+            throw new ValidationException(String.format("Student o numerze albumu %s już istnieje.", album));
         }
         students.add(studentData);
     }
@@ -147,7 +147,7 @@ public class StudentDataService implements IStudentDataService {
      * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
-    public boolean validate(StudentData studentData) {
+    public boolean validate(StudentData studentData) throws ValidationException {
         if (validatorService == null) return true;
         return validatorService.validate(studentData);
     }

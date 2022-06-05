@@ -10,23 +10,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static gui.StudentDataConverter.*;
 
-public class StudentDataViewModel extends DefaultTableModel {
+public class StudentDataViewTableModel extends DefaultTableModel {
 
-    private  static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
+    private static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
+
     static {
-        fieldMapping.put(GROUP_INDEX, (studentData, group) -> studentData.setGroup(group.toString())  );
-        fieldMapping.put(COLLOQIUM1_INDEX, (studentData, points) -> studentData.setTest1Points(Integer.parseInt(points.toString())) );
-        fieldMapping.put(COLLOQIUM2_INDEX, (studentData, points) -> studentData.setTest2Points(Integer.parseInt(points.toString())) );
-        fieldMapping.put(EXAM_INDEX, (studentData, points) -> studentData.setExamPoints(Integer.parseInt(points.toString())) );
-        fieldMapping.put(PROJECT_INDEX, (studentData, points) -> studentData.setProjectPoints(Integer.parseInt(points.toString())) );
-        fieldMapping.put(HOMEWORK_INDEX, (studentData, points) -> studentData.setHomeworkPoints(Integer.parseInt(points.toString())) );
-        fieldMapping.put(ACTIVITY_INDEX, (studentData, activityPoint) -> studentData.setActivityPoints(Integer.parseInt(activityPoint.toString())) );
+        fieldMapping.put(GROUP_INDEX, (studentData, group) -> studentData.setGroup(group.toString()));
+        fieldMapping.put(COLLOQIUM1_INDEX, (studentData, points) -> studentData.setTest1Points(Integer.parseInt(points.toString())));
+        fieldMapping.put(COLLOQIUM2_INDEX, (studentData, points) -> studentData.setTest2Points(Integer.parseInt(points.toString())));
+        fieldMapping.put(EXAM_INDEX, (studentData, points) -> studentData.setExamPoints(Integer.parseInt(points.toString())));
+        fieldMapping.put(PROJECT_INDEX, (studentData, points) -> studentData.setProjectPoints(Integer.parseInt(points.toString())));
+        fieldMapping.put(HOMEWORK_INDEX, (studentData, points) -> studentData.setHomeworkPoints(Integer.parseInt(points.toString())));
+        fieldMapping.put(ACTIVITY_INDEX, (studentData, activityPoint) -> studentData.setActivityPoints(Integer.parseInt(activityPoint.toString())));
     }
+
     private static final String headersLocalisationsPrefix = "studentTable.header";
     private static final String[] headersKeys = {
             "noAlbum",
@@ -42,7 +42,7 @@ public class StudentDataViewModel extends DefaultTableModel {
     };
     private IStudentDataService service;
 
-    public StudentDataViewModel(Object[][] data, IStudentDataService service) {
+    public StudentDataViewTableModel(Object[][] data, IStudentDataService service) {
         super(data, initHeaders());
         this.service = service;
     }
@@ -60,22 +60,24 @@ public class StudentDataViewModel extends DefaultTableModel {
         return column > 2;
     }
 
-
     @Override
     public void fireTableCellUpdated(int row, int column) {
-        System.out.println("Row " + row + " column: " + column);
-        String number = getValueAt(row, findColumn(LocalisationUtil.getText(headersLocalisationsPrefix + ".noAlbum"))).toString();
+        String number = getValueAt(row, NO_ALUBM_INDEX).toString();
         String newvalue = getValueAt(row, column).toString();
-
 
         try {
             StudentData data = service.get(number);
+            fieldMapping.get(column).accept(data, newvalue);
+            service.update(data);
 
-
+            //todo update sum after changing points
+//            super.setValueAt(data.getSum(), row, SUM_INDEX);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         super.fireTableCellUpdated(row, column);
     }
+
+
 }

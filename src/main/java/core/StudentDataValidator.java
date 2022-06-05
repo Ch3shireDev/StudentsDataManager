@@ -12,7 +12,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
-    public boolean validate(StudentData studentData) {
+    public boolean validate(StudentData studentData) throws ValidationException {
         if (!validateAlbum(studentData.getAlbum())) return false;
         if (!validateName(studentData.getName())) return false;
         if (!validateGroup(studentData.getGroup())) return false;

@@ -1,13 +1,11 @@
 package gui;
 
 import core.*;
-import gui.mock.MockStudentDataService;
-import gui.model.StudentDataViewModel;
+import gui.model.StudentDataViewTableModel;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.TableModel;
-import java.awt.*;
 import java.util.Locale;
 
 public class MainPanel {
@@ -19,14 +17,21 @@ public class MainPanel {
     private JButton saveButton;
     private JButton loadbutton;
     private JButton addNewStudentButton;
+    private JTextField albumNoTF;
+    private JTextField personTF;
+    private JTextField groupTF;
+    private JButton addStudentbtn;
     private MainPanel mainPanel1;
-    private final IStudentDataService studentDataService = new MockStudentDataService(new StudentDataPersistentStorageService(new FilesystemService()));
+    private final IStudentDataService studentDataService = new StudentDataService(
+            new MockStudentDataValidator(),
+            new StudentDataPersistentStorageService(new FilesystemService()));
 
     private final IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(new FilesystemService());
 
     public MainPanel(JFrame frame) {
         Object[][] data = getData();
-        TableModel tableModel = new StudentDataViewModel(data, studentDataService);
+        table1.getTableHeader().setReorderingAllowed(false);
+        TableModel tableModel = new StudentDataViewTableModel(data, studentDataService);
         langSelect.addItem("PL");
         langSelect.addItem("EN");
         langSelect.setSelectedIndex(1);
@@ -35,7 +40,7 @@ public class MainPanel {
         langSelect.addActionListener(e -> {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
             LocalisationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
-            table1.setModel(new StudentDataViewModel(data, studentDataService));
+            table1.setModel(new StudentDataViewTableModel(data, studentDataService));
             langSelectLabel.setText(LocalisationUtil.getText("langSelectLabel"));
             loadbutton.setText(LocalisationUtil.getText("loadButton"));
             saveButton.setText(LocalisationUtil.getText("saveButton"));
@@ -57,22 +62,11 @@ public class MainPanel {
                         studentDataService.add(studentData);
                     }
 
-                    table1.setModel(new StudentDataViewModel(getData(), studentDataService));
+                    table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
                 } catch (Exception e) {
                     //
                 }
             }
-        });
-
-        addNewStudentButton.addActionListener(event -> {
-            JDialog jDialog = new JDialog(frame, "title", true);
-            var x = new JPanel();
-            x.add(new JLabel("Test"));
-            x.add(new JTextField());
-
-            x.setMinimumSize(new Dimension(500, 500));
-            jDialog.setContentPane(x);
-            jDialog.setVisible(true);
         });
 
         saveButton.addActionListener(event -> {
@@ -93,6 +87,20 @@ public class MainPanel {
             }
         });
         table1.setModel(tableModel);
+
+        addStudentbtn.addActionListener(event -> {
+            String album = albumNoTF.getText();
+            String person = personTF.getText();
+            String group = groupTF.getText();
+
+            StudentData studentData = new StudentData(album, person, group);
+            try {
+                studentDataService.add(studentData);
+                table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(frame, "Błąd podczas dodawania nowego studenta!", "Błąd!", 0);
+            }
+        });
     }
 
     private Object[][] getData() {

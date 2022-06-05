@@ -6,6 +6,8 @@ import core.StudentData;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Objects;
+import java.util.Optional;
 
 public class MockStudentDataService implements IStudentDataService {
     private static final Collection<StudentData> mockData  = new LinkedList<>();
@@ -49,7 +51,9 @@ public class MockStudentDataService implements IStudentDataService {
 
     @Override
     public StudentData get(String album) throws Exception {
-        return null;
+        Optional<StudentData> sd = mockData.stream().filter(s -> Objects.equals(s.getAlbum(), album)).findFirst();
+        if (sd.isEmpty()) throw new Exception(String.format("Brak studenta o numerze albumu %s", album));
+        return sd.get();
     }
 
     @Override

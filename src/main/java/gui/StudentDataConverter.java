@@ -11,13 +11,13 @@ public class StudentDataConverter {
     public static final int NO_ALUBM_INDEX = 0;
     public static final int PERSON_INDEX = 1;
     public static final int GROUP_INDEX = 2;
-    public static final int COLLOQIUM1_INDEX = 3;
-    public static final int COLLOQIUM2_INDEX = 4;
-    public static final int EXAM_INDEX = 5;
-    public static final int SUM_INDEX = 6;
-    public static final int PROJECT_INDEX = 7;
-    public static final int HOMEWORK_INDEX = 8;
-    public static final int ACTIVITY_INDEX = 9;
+    public static final int HOMEWORK_INDEX =3;
+    public static final int ACTIVITY_INDEX = 4;
+    public static final int PROJECT_INDEX = 5;
+    public static final int COLLOQIUM1_INDEX = 6;
+    public static final int COLLOQIUM2_INDEX = 7;
+    public static final int EXAM_INDEX = 8;
+    public static final int SUM_INDEX = 9;
 
     private  static final Map<Integer, Function<StudentData, Object>> fieldMapping = new HashMap<>();
     static {
@@ -34,11 +34,12 @@ public class StudentDataConverter {
     }
 
     public static Object[][] convertToViewModel(Collection<StudentData> studentDataCollection){
-        Object[][] x = new Object[studentDataCollection.size()][9];
+        int columnsSize = 10;
+        Object[][] x = new Object[studentDataCollection.size()][columnsSize];
         StudentData[] studentData = studentDataCollection.toArray(StudentData[]::new);
 
         for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < 9; j++) {
+            for (int j = 0; j < columnsSize; j++) {
                 x[i][j] = fieldMapping.get(j).apply(studentData[i]);
             }
         }

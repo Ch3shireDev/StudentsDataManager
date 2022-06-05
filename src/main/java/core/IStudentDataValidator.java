@@ -11,7 +11,7 @@ public interface IStudentDataValidator {
      * @param studentData Dane studenta.
      * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
-    boolean validate(StudentData studentData);
+    boolean validate(StudentData studentData) throws ValidationException;
 
     /**
      * Waliduje numer albumu.
