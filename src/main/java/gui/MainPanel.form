@@ -67,13 +67,13 @@
           <component id="9496c" class="javax.swing.JButton" binding="saveButton">
             <constraints/>
             <properties>
-              <text resource-bundle="localisations" key="saveButton"/>
+              <text resource-bundle="localizations" key="saveButton"/>
             </properties>
           </component>
           <component id="86c60" class="javax.swing.JButton" binding="loadbutton">
             <constraints/>
             <properties>
-              <text resource-bundle="localisations" key="loadButton"/>
+              <text resource-bundle="localizations" key="loadButton"/>
             </properties>
           </component>
         </children>
@@ -96,7 +96,7 @@
                 <constraints/>
                 <properties>
                   <horizontalAlignment value="0"/>
-                  <text resource-bundle="localisations" key="studentTable.header.noAlbum"/>
+                  <text resource-bundle="localizations" key="studentTable.header.noAlbum"/>
                 </properties>
               </component>
               <component id="22c91" class="javax.swing.JTextField" binding="albumNoTF">
@@ -118,7 +118,7 @@
                 <constraints/>
                 <properties>
                   <horizontalAlignment value="0"/>
-                  <text resource-bundle="localisations" key="studentTable.header.person"/>
+                  <text resource-bundle="localizations" key="studentTable.header.person"/>
                 </properties>
               </component>
               <component id="846f2" class="javax.swing.JTextField" binding="personTF">
@@ -138,7 +138,7 @@
               <component id="9013f" class="javax.swing.JLabel">
                 <constraints/>
                 <properties>
-                  <text resource-bundle="localisations" key="studentTable.header.group"/>
+                  <text resource-bundle="localizations" key="studentTable.header.group"/>
                 </properties>
               </component>
               <component id="3a508" class="javax.swing.JTextField" binding="groupTF">
@@ -153,7 +153,7 @@
             <constraints/>
             <properties>
               <enabled value="true"/>
-              <text resource-bundle="localisations" key="addStudentBtn"/>
+              <text resource-bundle="localizations" key="addStudentBtn"/>
             </properties>
           </component>
         </children>

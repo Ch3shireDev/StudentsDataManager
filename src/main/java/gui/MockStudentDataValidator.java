@@ -4,9 +4,16 @@ import core.IStudentDataValidator;
 import core.StudentData;
 import core.ValidationException;
 
+import java.util.Collection;
+
 public class MockStudentDataValidator implements IStudentDataValidator {
     @Override
-    public boolean validate(StudentData studentData) throws ValidationException {
+    public Collection<String> getMessages(StudentData studentData) {
+        return null;
+    }
+
+    @Override
+    public boolean validate(StudentData studentData) {
         return true;
     }
 

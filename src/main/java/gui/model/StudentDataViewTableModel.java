@@ -2,7 +2,7 @@ package gui.model;
 
 import core.IStudentDataService;
 import core.StudentData;
-import gui.LocalisationUtil;
+import common.LocalizationUtil;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
@@ -50,7 +50,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     private static String[] initHeaders() {
         List<String> headers = new LinkedList<>();
         for (int i = 0; i < headersKeys.length; i++) {
-            headers.add(LocalisationUtil.getText(headersLocalisationsPrefix + "." + headersKeys[i]));
+            headers.add(LocalizationUtil.getText(headersLocalisationsPrefix + "." + headersKeys[i]));
         }
         return headers.toArray(String[]::new);
     }

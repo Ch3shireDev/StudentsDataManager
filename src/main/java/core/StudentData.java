@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
+/**
+ * Klasa danych studenta.
+ */
 public class StudentData implements Serializable {
 
     private String album;
@@ -59,6 +62,18 @@ public class StudentData implements Serializable {
         this.group = group;
     }
 
+    /**
+     * Konstruktor
+     * @param album Numer albumu.
+     * @param name Imię i nazwisko.
+     * @param group Numer grupy.
+     * @param homeworkPoints Liczba punktów z pracy domowej.
+     * @param activityPoints Liczba punktów z aktywności.
+     * @param projectPoints Liczba punktów z projektu.
+     * @param test1Points Liczba punktów z pierwszego kolokwium.
+     * @param test2Points Liczba punktów z drugiego kolokwium
+     * @param examPoints Liczba punktów z egzaminu.
+     */
     public StudentData(String album, String name, String group, int homeworkPoints, int activityPoints, int projectPoints, int test1Points, int test2Points, int examPoints) {
         this.album = album;
         this.name = name;

@@ -1,5 +1,7 @@
 package core;
 
+import common.LocalizationUtil;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Objects;
@@ -11,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class StudentDataService implements IStudentDataService {
 
-    private static final Collection<StudentData> students  = new LinkedList<>();;
+    private final Collection<StudentData> students  = new LinkedList<>();;
     private final IStudentDataValidator validatorService;
 
     public StudentDataService(IStudentDataValidator validatorService) {
@@ -89,7 +91,6 @@ public class StudentDataService implements IStudentDataService {
      *
      * @param album Numer albumu.
      * @return Prawda jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
-     * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
     public boolean exists(String album) {
         return students.stream().anyMatch(studentData1 -> Objects.equals(studentData1.getAlbum(), album));
@@ -105,11 +106,10 @@ public class StudentDataService implements IStudentDataService {
      */
     @Override
     public void add(StudentData studentData) throws ValidationException {
-        if (!validate(studentData)) throw new ValidationException("Niepoprawne dane.");
+        if (!validate(studentData)) throw new ValidationException(LocalizationUtil.getText("invalidData"));
         String album = studentData.getAlbum();
         if (exists(album)) {
-            //todo internationalize
-            throw new ValidationException(String.format("Student o numerze albumu %s już istnieje.", album));
+            throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"),album)));
         }
         students.add(studentData);
     }
@@ -117,6 +117,7 @@ public class StudentDataService implements IStudentDataService {
     /**
      * Zapisuje dane studentów w serwisie danych trwałych.
      *
+     * @param preservationService Serwis przechowywania danych studenta.
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
     @Override

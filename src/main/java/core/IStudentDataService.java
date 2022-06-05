@@ -34,12 +34,13 @@ public interface IStudentDataService {
      * Dodaje dane studenta.
      *
      * @param studentData Dane studenta.
+     * @throws Exception Wyjątek w przypadku nieprawidłowych danych studenta.
      */
     void add(StudentData studentData) throws Exception;
 
     /**
      * Zapisuje dane studentów.
-     *
+     * @param storageService Moduł przechowujący dane studenta
      * @throws Exception Wyjątek w przypadku błędu zapisu w zewnętrznym serwisie.
      */
     void save(IStudentDataPersistentStorageService storageService) throws Exception;
