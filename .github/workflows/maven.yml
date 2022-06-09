@@ -34,8 +34,10 @@ jobs:
       with:
         name: Package
         path: docs
-    - name: Deploy JavaDoc 🚀
-      uses: MathieuSoysal/Javadoc-publisher.yml@v2.0.3
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@3.6.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        java-version: 11
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: docs # The folder the action should deploy.
+        CLEAN: true
