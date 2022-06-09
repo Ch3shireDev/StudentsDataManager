@@ -34,7 +34,7 @@ public interface IStudentDataService {
      * Dodaje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @throws Exception Wyjątek w przypadku nieprawidłowych danych studenta.
+     * @throws ValidationException Wyjątek w przypadku nieprawidłowych danych studenta.
      */
     void add(StudentData studentData) throws ValidationException;
 
