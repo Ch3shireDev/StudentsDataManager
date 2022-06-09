@@ -1,7 +1,7 @@
+package core;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import core.*;
-import mockups.MockFilesystemService;
-import mockups.MockValidatorService;
+import core.mockups.MockFilesystemService;
+import core.mockups.MockValidatorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Testy sprawdzające poprawność działania zapisu i odczytu do pliku.
  */
-class StudentDataPersistentStorageServiceTests {
+class StudentDataPersistentStorageServiceTest {
     MockFilesystemService filesystemService;
     IStudentDataPersistentStorageService preservationService;
     IStudentDataValidator validatorService;

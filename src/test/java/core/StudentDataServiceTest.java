@@ -1,8 +1,6 @@
-import core.IStudentDataService;
-import core.StudentData;
-import core.StudentDataService;
-import mockups.MockPersistentStorageService;
-import mockups.MockValidatorService;
+package core;
+import core.mockups.MockPersistentStorageService;
+import core.mockups.MockValidatorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +10,7 @@ import java.util.Collection;
 /**
  * Zestaw testów dla serwisu StudentDataService.
  */
-class StudentDataServiceTests {
+class StudentDataServiceTest {
 
     IStudentDataService service;
     MockPersistentStorageService preservationService;

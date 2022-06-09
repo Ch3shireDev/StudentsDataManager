@@ -1,4 +1,4 @@
-package mockups;
+package core.mockups;
 
 import core.IStudentDataValidator;
 import core.StudentData;

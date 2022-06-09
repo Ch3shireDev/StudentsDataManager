@@ -1,4 +1,4 @@
-package mockups;
+package core.mockups;
 
 import core.IFilesystemService;
 

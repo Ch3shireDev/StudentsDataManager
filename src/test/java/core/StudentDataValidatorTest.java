@@ -1,11 +1,10 @@
-import core.IStudentDataValidator;
-import core.StudentData;
-import core.StudentDataValidator;
+package core;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-class StudentDataValidatorTests {
+class StudentDataValidatorTest {
 
     static IStudentDataValidator validator;
 
