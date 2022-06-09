@@ -7,6 +7,7 @@ import gui.model.StudentDataViewTableModel;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.util.Locale;
 
 public class MainPanel {
@@ -20,26 +21,25 @@ public class MainPanel {
     private JLabel langSelectLabel;
     private JButton saveButton;
     private JButton loadbutton;
-    private JButton addNewStudentButton;
+    private JLabel albumLabel;
     private JTextField albumNoTF;
+    private JLabel personLabel;
     private JTextField personTF;
+    private JLabel groupLabel;
     private JTextField groupTF;
     private JButton addStudentbtn;
-    private MainPanel mainPanel1;
+    private JPanel langSelectPanel;
+    private JPanel actionButtonsPanel;
+    private JPanel studentFormPanel;
 
     public MainPanel(JFrame frame) {
-        Object[][] data = getData();
-        table1.getTableHeader().setReorderingAllowed(false);
-        TableModel tableModel = new StudentDataViewTableModel(data, studentDataService);
-        langSelect.addItem("PL");
-        langSelect.addItem("EN");
-        langSelect.setSelectedIndex(1);
 
-        langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
+        setupUi();
+        TableModel tableModel = new StudentDataViewTableModel(getData(), studentDataService);
         langSelect.addActionListener(e -> {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
             LocalizationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
-            table1.setModel(new StudentDataViewTableModel(data, studentDataService));
+            table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
             langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
             loadbutton.setText(LocalizationUtil.getText("loadButton"));
             saveButton.setText(LocalizationUtil.getText("saveButton"));
@@ -54,12 +54,11 @@ public class MainPanel {
             if (ACTION_RESULT == JFileChooser.APPROVE_OPTION) {
                 // set the label to the path of the selected file
                 String filename = fileChooser.getSelectedFile().getAbsolutePath();
-                IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService("filename", filesystemService);
+                IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.load(storageService);
                     table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     //
                 }
             }
@@ -78,8 +77,7 @@ public class MainPanel {
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.save(storageService);
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                     //
                 }
             }
@@ -95,12 +93,66 @@ public class MainPanel {
             try {
                 studentDataService.add(studentData);
                 table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
-            }
-            catch (Exception e) {
-                // TODO: Internationalization.
-                JOptionPane.showMessageDialog(frame, "Błąd podczas dodawania nowego studenta!", "Błąd!", 0);
+            } catch (ValidationException e) {
+
+                JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
             }
         });
+
+        table1.getTableHeader().setReorderingAllowed(false);
+
+    }
+
+    private void setupUi() {
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+        mainPanel.setMinimumSize(new Dimension(1200, 1000));
+
+
+        TableModel tableModel = new StudentDataViewTableModel(getData(), studentDataService);
+
+        table1 = new JTable(tableModel);
+        table1.setAutoCreateRowSorter(true);
+        scrollPane = new JScrollPane(table1);
+        scrollPane.setEnabled(true);
+        langSelectPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        langSelect = new JComboBox<>(new String[]{
+                Locale.forLanguageTag("pl-PL").getLanguage(),
+                Locale.forLanguageTag("en-EN").getLanguage(),
+        });
+        langSelect.setSelectedIndex(Locale.getDefault().equals(Locale.ENGLISH) ? 1 : 0);
+        langSelectLabel = new JLabel(LocalizationUtil.getText("langSelectLabel"));
+        langSelectPanel.add(langSelectLabel);
+        langSelectPanel.add(langSelect);
+        actionButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        loadbutton = new JButton(LocalizationUtil.getText("loadButton"));
+        saveButton = new JButton(LocalizationUtil.getText("saveButton"));
+        actionButtonsPanel.add(loadbutton);
+        actionButtonsPanel.add(saveButton);
+        studentFormPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        addStudentbtn = new JButton(LocalizationUtil.getText("addStudentBtn"));
+
+        albumLabel = new JLabel(LocalizationUtil.getText("studentTable.header.noAlbum"));
+        albumNoTF = new JTextField(10);
+        groupLabel = new JLabel(LocalizationUtil.getText("studentTable.header.group"));
+        groupTF = new JTextField(10);
+        personLabel = new JLabel(LocalizationUtil.getText("studentTable.header.person"));
+        personTF = new JTextField(10);
+        studentFormPanel.add(albumLabel);
+        studentFormPanel.add(albumNoTF);
+        studentFormPanel.add(personLabel);
+        studentFormPanel.add(personTF);
+        studentFormPanel.add(groupLabel);
+        studentFormPanel.add(groupTF);
+        studentFormPanel.add(addStudentbtn);
+        mainPanel.add(actionButtonsPanel);
+        mainPanel.add(langSelectPanel);
+        JPanel x = new JPanel();
+        x.setLayout(new BoxLayout(x, BoxLayout.Y_AXIS));
+        x.add(studentFormPanel);
+        x.add(scrollPane);
+        mainPanel.add(x);
+
     }
 
     public static void main(String[] args) {
@@ -118,8 +170,7 @@ public class MainPanel {
         try {
             data = StudentDataConverter.convertToViewModel(studentDataService.getAll());
             return data;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             //show error dialog
             return new Object[0][0];
         }

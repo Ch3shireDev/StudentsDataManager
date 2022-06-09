@@ -3,6 +3,7 @@ package gui.model;
 import core.IStudentDataService;
 import core.StudentData;
 import common.LocalizationUtil;
+import gui.StudentDataConverter;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
@@ -70,14 +71,22 @@ public class StudentDataViewTableModel extends DefaultTableModel {
             fieldMapping.get(column).accept(data, newvalue);
             service.update(data);
 
-            //todo update sum after changing points
-//            super.setValueAt(data.getSum(), row, SUM_INDEX);
+            setDataVector(getData(), initHeaders());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         super.fireTableCellUpdated(row, column);
     }
-
+    private Object[][] getData() {
+        Object[][] data;
+        try {
+            data = StudentDataConverter.convertToViewModel(service.getAll());
+            return data;
+        } catch (Exception e) {
+            //show error dialog
+            return new Object[0][0];
+        }
+    }
 
 }
