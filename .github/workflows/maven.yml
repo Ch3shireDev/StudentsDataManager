@@ -31,7 +31,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - run: mvn javadoc:javadoc
-    - run: rm docs; mkdir docs && yes | cp -r target/site/apidocs docs
+    - run: rm -r docs; mkdir docs && yes | cp -r target/site/apidocs docs
     - uses: actions/upload-artifact@v1
       with:
         name: Package
