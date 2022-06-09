@@ -24,3 +24,9 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - run: mvn javadoc:javadoc
+    - run: mkdir docs && cp -r target/site/apidocs docs
+    - uses: actions/upload-artifact@v1
+      with:
+        name: Package
+        path: staging
