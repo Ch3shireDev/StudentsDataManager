@@ -14,3 +14,4 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           java-version: 11
+          target-folder: target/site/apidocs
