@@ -7,7 +7,6 @@ on:
 
 jobs:
   publish:
-    needs: maven
     runs-on: ubuntu-latest
     steps:
       - name: Deploy JavaDoc 🚀
