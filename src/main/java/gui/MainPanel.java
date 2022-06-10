@@ -34,12 +34,27 @@ public class MainPanel {
 
     public MainPanel(JFrame frame) {
 
-        setupUi();
-        TableModel tableModel = new StudentDataViewTableModel(getData(), studentDataService);
-        langSelect.addActionListener(e -> {
+        try {
+            setupUi();
+        } catch (Exception e) {
+            showError(frame, e);
+        }
+        TableModel tableModel = null;
+        try {
+            tableModel = new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
+        } catch (Exception e) {
+            showError(frame, e);
+        }
+        table1.getTableHeader().setReorderingAllowed(false);
+
+        langSelect.addActionListener(event -> {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
             LocalizationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
-            table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
+            try {
+                table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+            } catch (Exception e) {
+                showError(frame, e);
+            }
             langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
             loadbutton.setText(LocalizationUtil.getText("loadButton"));
             saveButton.setText(LocalizationUtil.getText("saveButton"));
@@ -57,9 +72,9 @@ public class MainPanel {
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.load(storageService);
-                    table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
+                    table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
                 } catch (Exception e) {
-                    //
+                    showError(frame, e);
                 }
             }
         });
@@ -78,11 +93,12 @@ public class MainPanel {
                 try {
                     studentDataService.save(storageService);
                 } catch (Exception e) {
-                    //
+                    showError(frame, e);
                 }
             }
         });
-        table1.setModel(tableModel);
+        if (tableModel != null)
+            table1.setModel(tableModel);
 
         addStudentbtn.addActionListener(event -> {
             String album = albumNoTF.getText();
@@ -92,29 +108,52 @@ public class MainPanel {
             StudentData studentData = new StudentData(album, person, group);
             try {
                 studentDataService.add(studentData);
-                table1.setModel(new StudentDataViewTableModel(getData(), studentDataService));
-            } catch (ValidationException e) {
-
-                JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
+                table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+            } catch (Exception e) {
+                showError(frame, e);
             }
         });
-
-        table1.getTableHeader().setReorderingAllowed(false);
-
     }
 
-    private void setupUi() {
+    private void showError(JFrame frame, Exception e) {
+        JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
+    }
+
+    private void setupUi() throws Exception {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setMinimumSize(new Dimension(1200, 1000));
+        initActionButtonsPanel();
+        initLanguageSelectPanel();
+        initNewStudentFormPanel();
+        initTable();
 
+        mainPanel.add(actionButtonsPanel);
+        mainPanel.add(langSelectPanel);
 
-        TableModel tableModel = new StudentDataViewTableModel(getData(), studentDataService);
+        JPanel tableAndFormPanel = new JPanel();
+        tableAndFormPanel.setLayout(new BoxLayout(tableAndFormPanel, BoxLayout.Y_AXIS));
+        tableAndFormPanel.add(studentFormPanel);
+        tableAndFormPanel.add(scrollPane);
+        mainPanel.add(tableAndFormPanel);
+    }
+
+    /**
+     * Inicjalizacja panelu zawierającego scrollowaną tabelę z danhymi studentów
+     */
+    private void initTable() throws Exception {
+        TableModel tableModel = new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
 
         table1 = new JTable(tableModel);
         table1.setAutoCreateRowSorter(true);
         scrollPane = new JScrollPane(table1);
         scrollPane.setEnabled(true);
+    }
+
+    /**
+     * Inicjalizacja panelu zawierającego przycisk typu ComboBox do zmiany języka aplikacji
+     */
+    private void initLanguageSelectPanel() {
         langSelectPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         langSelect = new JComboBox<>(new String[]{
                 Locale.forLanguageTag("pl-PL").getLanguage(),
@@ -124,11 +163,23 @@ public class MainPanel {
         langSelectLabel = new JLabel(LocalizationUtil.getText("langSelectLabel"));
         langSelectPanel.add(langSelectLabel);
         langSelectPanel.add(langSelect);
+    }
+
+    /**
+     * Inicjalizacja panelu zawierającego przyciski do załadowania pliku z danymi i eksportu danych
+     */
+    private void initActionButtonsPanel() {
         actionButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         loadbutton = new JButton(LocalizationUtil.getText("loadButton"));
         saveButton = new JButton(LocalizationUtil.getText("saveButton"));
         actionButtonsPanel.add(loadbutton);
         actionButtonsPanel.add(saveButton);
+    }
+
+    /**
+     * Inicjalizacja panelu zawierającego prosty formularz z kontolkami do wprowadzenia nowego studenta
+     */
+    private void initNewStudentFormPanel() {
         studentFormPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
         addStudentbtn = new JButton(LocalizationUtil.getText("addStudentBtn"));
 
@@ -145,35 +196,14 @@ public class MainPanel {
         studentFormPanel.add(groupLabel);
         studentFormPanel.add(groupTF);
         studentFormPanel.add(addStudentbtn);
-        mainPanel.add(actionButtonsPanel);
-        mainPanel.add(langSelectPanel);
-        JPanel x = new JPanel();
-        x.setLayout(new BoxLayout(x, BoxLayout.Y_AXIS));
-        x.add(studentFormPanel);
-        x.add(scrollPane);
-        mainPanel.add(x);
-
     }
 
     public static void main(String[] args) {
-
-        JFrame frame = new JFrame("MainPanel");
+        JFrame frame = new JFrame("Student Data Manager");
         MainPanel mainPanel1 = new MainPanel(frame);
         frame.setContentPane(mainPanel1.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
-
-    private Object[][] getData() {
-        Object[][] data;
-        try {
-            data = StudentDataConverter.convertToViewModel(studentDataService.getAll());
-            return data;
-        } catch (Exception e) {
-            //show error dialog
-            return new Object[0][0];
-        }
-    }
-
 }

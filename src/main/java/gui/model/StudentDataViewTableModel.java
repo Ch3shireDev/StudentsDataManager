@@ -13,9 +13,14 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static gui.StudentDataConverter.*;
-
+/**
+ * Model danych wyświetlany w tabeli na interfejsie użytkownika
+ * */
 public class StudentDataViewTableModel extends DefaultTableModel {
 
+    /**
+     * Mapowanie kolumn i setterów aby ułatwić edytowanie danych w kolumnach
+     * */
     private static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
 
     static {
@@ -71,22 +76,11 @@ public class StudentDataViewTableModel extends DefaultTableModel {
             fieldMapping.get(column).accept(data, newvalue);
             service.update(data);
 
-            setDataVector(getData(), initHeaders());
+            setDataVector(StudentDataConverter.convertToViewModelData(service.getAll()), initHeaders());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
 
         super.fireTableCellUpdated(row, column);
     }
-    private Object[][] getData() {
-        Object[][] data;
-        try {
-            data = StudentDataConverter.convertToViewModel(service.getAll());
-            return data;
-        } catch (Exception e) {
-            //show error dialog
-            return new Object[0][0];
-        }
     }
-
-}

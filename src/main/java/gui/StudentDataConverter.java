@@ -33,16 +33,20 @@ public class StudentDataConverter {
         fieldMapping.put(ACTIVITY_INDEX, StudentData::getActivityPoints);
     }
 
-    public static Object[][] convertToViewModel(Collection<StudentData> studentDataCollection){
-        int columnsSize = 10;
-        Object[][] x = new Object[studentDataCollection.size()][columnsSize];
-        StudentData[] studentData = studentDataCollection.toArray(StudentData[]::new);
+    public static Object[][] convertToViewModelData(Collection<StudentData> studentDataCollection){
+        try {
+            int columnsSize = 10;
+            Object[][] x = new Object[studentDataCollection.size()][columnsSize];
+            StudentData[] studentData = studentDataCollection.toArray(StudentData[]::new);
 
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < columnsSize; j++) {
-                x[i][j] = fieldMapping.get(j).apply(studentData[i]);
+            for (int i = 0; i < x.length; i++) {
+                for (int j = 0; j < columnsSize; j++) {
+                    x[i][j] = fieldMapping.get(j).apply(studentData[i]);
+                }
             }
+            return x;
+        } catch (Exception e) {
+            return new Object[0][0];
         }
-        return x;
     }
 }
