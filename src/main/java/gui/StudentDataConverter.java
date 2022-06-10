@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * TODO: Dodać opis.
+ */
 public class StudentDataConverter {
     public static final int NO_ALUBM_INDEX = 0;
     public static final int PERSON_INDEX = 1;
@@ -33,6 +36,11 @@ public class StudentDataConverter {
         fieldMapping.put(ACTIVITY_INDEX, StudentData::getActivityPoints);
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @param studentDataCollection
+     * @return
+     */
     public static Object[][] convertToViewModelData(Collection<StudentData> studentDataCollection){
         try {
             int columnsSize = 10;

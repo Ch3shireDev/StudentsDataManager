@@ -10,6 +10,9 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.util.Locale;
 
+/**
+ * TODO: Dodać opis.
+ */
 public class MainPanel {
     private final IFilesystemService filesystemService = new FilesystemService();
     private final IStudentDataValidator validatorService = new StudentDataValidator();
@@ -32,6 +35,10 @@ public class MainPanel {
     private JPanel actionButtonsPanel;
     private JPanel studentFormPanel;
 
+    /**
+     * TODO: Dodać opis.
+     * @param frame
+     */
     public MainPanel(JFrame frame) {
 
         try {
@@ -115,10 +122,19 @@ public class MainPanel {
         });
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @param frame
+     * @param e
+     */
     private void showError(JFrame frame, Exception e) {
         JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @throws Exception
+     */
     private void setupUi() throws Exception {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -198,6 +214,10 @@ public class MainPanel {
         studentFormPanel.add(addStudentbtn);
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @param args
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Student Data Manager");
         MainPanel mainPanel1 = new MainPanel(frame);
