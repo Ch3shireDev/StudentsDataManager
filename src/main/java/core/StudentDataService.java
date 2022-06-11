@@ -81,9 +81,23 @@ public class StudentDataService implements IStudentDataService {
      */
     @Override
     public void update(StudentData studentData) throws Exception {
+        validateStudentDataWithErrorMessages(studentData);
         String album = studentData.getAlbum();
         StudentData student = get(album);
         student.set(studentData);
+    }
+
+    /**
+     * Metoda walidująca dane studenta wraz z konwersją błędów do komunikatów wyświetlanych na aplikacji.
+     * @param studentData walidowany obiekt danych studenta
+     * @throws ValidationException wyjątek walidacji ze skonwertowanym komunikatem błędów danych
+     * */
+    private void validateStudentDataWithErrorMessages(StudentData studentData) throws ValidationException {
+        if (!validate(studentData)) {
+            Collection<String> messages = validatorService.getMessages(studentData);
+            String message = String.join("\n", messages);
+            throw new ValidationException(String.format(LocalizationUtil.getText("invalidData"), message));
+        }
     }
 
     /**
@@ -118,11 +132,7 @@ public class StudentDataService implements IStudentDataService {
      */
     @Override
     public void add(StudentData studentData) throws ValidationException {
-        if (!validate(studentData)) {
-            Collection<String> messages = validatorService.getMessages(studentData);
-            String message = String.join("\n", messages);
-            throw new ValidationException(String.format(LocalizationUtil.getText("invalidData"), message));
-        }
+        validateStudentDataWithErrorMessages(studentData);
         String album = studentData.getAlbum();
         if (exists(album)) {
             throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"), album)));
