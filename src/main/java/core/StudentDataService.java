@@ -87,6 +87,11 @@ public class StudentDataService implements IStudentDataService {
         student.set(studentData);
     }
 
+    /**
+     * Metoda walidująca dane studenta wraz z konwersją błędów do komunikatów wyświetlanych na aplikacji.
+     * @param studentData walidowany obiekt danych studenta
+     * @throws ValidationException wyjątek walidacji ze skonwertowanym komunikatem błędów danych
+     * */
     private void validateStudentDataWithErrorMessages(StudentData studentData) throws ValidationException {
         if (!validate(studentData)) {
             Collection<String> messages = validatorService.getMessages(studentData);
