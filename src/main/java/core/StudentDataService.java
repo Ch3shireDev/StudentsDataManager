@@ -118,7 +118,11 @@ public class StudentDataService implements IStudentDataService {
      */
     @Override
     public void add(StudentData studentData) throws ValidationException {
-        if (!validate(studentData)) throw new ValidationException(LocalizationUtil.getText("invalidData"));
+        if (!validate(studentData)) {
+            Collection<String> messages = validatorService.getMessages(studentData);
+            String message = String.join("\n", messages);
+            throw new ValidationException(String.format(LocalizationUtil.getText("invalidData"), message));
+        }
         String album = studentData.getAlbum();
         if (exists(album)) {
             throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"), album)));
