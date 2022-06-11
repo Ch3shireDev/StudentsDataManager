@@ -13,7 +13,7 @@ import java.util.Locale;
 
 /**
  * Główna klasa startowa uruchamiająca aplikację okienkową.
- * */
+ */
 public class MainPanel {
     private final IFilesystemService filesystemService = new FilesystemService();
     private final IStudentDataValidator validatorService = new StudentDataValidator();
@@ -38,15 +38,12 @@ public class MainPanel {
 
     /**
      * Konstruktor głównej klasy inicjalizujący kontrolki
+     *
      * @param frame - bazowe okno
      */
     public MainPanel(JFrame frame) {
 
-        try {
-            setupUi();
-        } catch (Exception e) {
-            showError(frame, e);
-        }
+        setupUi(frame);
         TableModel tableModel = null;
         try {
             tableModel = new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
@@ -125,25 +122,32 @@ public class MainPanel {
 
     /**
      * Metoda wyswietlająca okno typu dialog z informacją o błędzie.
+     *
      * @param frame - bazowe okno względem którego wyświetla się komunikat o błędzie
-     * @param e - Wyjątek który został zgłoszony przez aplikację
+     * @param e     - Wyjątek który został zgłoszony przez aplikację
      */
     private void showError(JFrame frame, Exception e) {
         JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
     }
 
     /**
-     * TODO: Dodać opis.
-     * @throws Exception
+     * Metoda inicjalizaująca całe GUI aplikacji.
+     * Wywołuje podrzędne metody inicjalizujące konkretne kontrolki.
+     *
+     * @param frame bazowe okienko aplikacji
      */
-    private void setupUi() throws Exception {
+    private void setupUi(JFrame frame) {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setMinimumSize(new Dimension(1200, 1000));
         initActionButtonsPanel();
         initLanguageSelectPanel();
         initNewStudentFormPanel();
-        initTable();
+        try {
+            initTable();
+        } catch (Exception e) {
+            showError(frame, e);
+        }
 
         mainPanel.add(actionButtonsPanel);
         mainPanel.add(langSelectPanel);

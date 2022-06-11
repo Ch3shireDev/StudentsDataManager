@@ -13,14 +13,15 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import static gui.StudentDataConverter.*;
+
 /**
  * Model danych wyświetlany w tabeli na interfejsie użytkownika
- * */
+ */
 public class StudentDataViewTableModel extends DefaultTableModel {
 
     /**
      * Mapowanie kolumn i setterów aby ułatwić edytowanie danych w kolumnach
-     * */
+     */
     private static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
 
     static {
@@ -49,9 +50,8 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     private IStudentDataService service;
 
     /**
-     * TODO: Dodać opis.
-     * @param data
-     * @param service
+     * @param data    Dane studenta - do stworzenia tego obiektu można użyć {@link StudentDataConverter}
+     * @param service Serwis
      */
     public StudentDataViewTableModel(Object[][] data, IStudentDataService service) {
         super(data, initHeaders());
@@ -59,8 +59,9 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * TODO: Dodać opis.
-     * @return
+     * Inicjalizacja nagłówków tabeli wykorzystująca tłumaczenia.
+     *
+     * @return Tablica nagłówkow przetłumaczona na aktualny {@link java.util.Locale} który jest w klasie {@link LocalizationUtil}
      */
     private static String[] initHeaders() {
         List<String> headers = new LinkedList<>();
@@ -71,10 +72,11 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * TODO: Dodać opis.
-     * @param row
-     * @param column
-     * @return
+     * Nadpisanie bazowej metody celem zablokowania edycji kolumn: album, grupa, imię i nazwisko
+     *
+     * @param row    - wiersz w tabeli
+     * @param column - kolumna w tabeli
+     * @return - zablokowanie kolumny
      */
     @Override
     public boolean isCellEditable(int row, int column) {
@@ -82,9 +84,10 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * TODO: Dodać opis.
-     * @param row
-     * @param column
+     * Metoda wykonujaca się na aktualizację danych w komórce tabeli
+     *
+     * @param row    - wiersz w którym zaszła aktualizacja
+     * @param column - kolumna w której zaszła aktualizacja
      */
     @Override
     public void fireTableCellUpdated(int row, int column) {
@@ -103,4 +106,4 @@ public class StudentDataViewTableModel extends DefaultTableModel {
 
         super.fireTableCellUpdated(row, column);
     }
-    }
+}
