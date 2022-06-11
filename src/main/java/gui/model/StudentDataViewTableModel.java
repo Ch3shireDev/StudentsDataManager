@@ -34,7 +34,14 @@ public class StudentDataViewTableModel extends DefaultTableModel {
         fieldMapping.put(ACTIVITY_INDEX, (studentData, activityPoint) -> studentData.setActivityPoints(Integer.parseInt(activityPoint.toString())));
     }
 
+    /**
+     * Wspólny prefix kluczy z ResourceBundle - nagłówków kolumn
+     * */
     private static final String headersLocalisationsPrefix = "studentTable.header";
+
+    /**
+     * Klucze nagłówków kolumn
+     * */
     private static final String[] headersKeys = {
             "noAlbum",
             "person",
@@ -47,6 +54,10 @@ public class StudentDataViewTableModel extends DefaultTableModel {
             "exam",
             "sum"
     };
+
+    /**
+     * Serwis {@link IStudentDataService}
+     * */
     private IStudentDataService service;
 
     /**

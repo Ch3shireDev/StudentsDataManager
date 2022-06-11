@@ -219,6 +219,10 @@ public class MainPanel {
         studentFormPanel.add(addStudentbtn);
     }
 
+    /**
+     * Metoda uruchamiająca działania aplikacji
+     * @param args Parametry uruchomieniowe (opcjonalne)
+     * */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Student Data Manager");
         MainPanel mainPanel1 = new MainPanel(frame);
