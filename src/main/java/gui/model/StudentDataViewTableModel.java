@@ -107,25 +107,23 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     /**
      * Metoda wykonujaca się na aktualizację danych w komórce tabeli
      *
+     * @param aValue nowa wartość które będzoe wpipsywana do komórki
      * @param row    - wiersz w którym zaszła aktualizacja
      * @param column - kolumna w której zaszła aktualizacja
      */
     @Override
-    public void fireTableCellUpdated(int row, int column) {
+    public void setValueAt(Object aValue, int row, int column) {
         String number = getValueAt(row, NO_ALUBM_INDEX).toString();
-        String newvalue = getValueAt(row, column).toString();
-
         try {
             StudentData data = service.get(number);
-            fieldMapping.get(column).accept(data, newvalue);
-            service.update(data);
-
+            StudentData newData = new StudentData(data);
+            fieldMapping.get(column).accept(newData, aValue);
+            service.update(newData);
+            super.setValueAt(aValue, row, column);
             setDataVector(StudentDataConverter.convertToViewModelData(service.getAll()), initHeaders());
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(frame, e.getMessage(), LocalizationUtil.getText("invalidData"), 0);
+            JOptionPane.showMessageDialog(frame, e.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
         }
-
-        super.fireTableCellUpdated(row, column);
     }
 }
