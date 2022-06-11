@@ -48,11 +48,20 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     };
     private IStudentDataService service;
 
+    /**
+     * TODO: Dodać opis.
+     * @param data
+     * @param service
+     */
     public StudentDataViewTableModel(Object[][] data, IStudentDataService service) {
         super(data, initHeaders());
         this.service = service;
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @return
+     */
     private static String[] initHeaders() {
         List<String> headers = new LinkedList<>();
         for (int i = 0; i < headersKeys.length; i++) {
@@ -61,11 +70,22 @@ public class StudentDataViewTableModel extends DefaultTableModel {
         return headers.toArray(String[]::new);
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @param row
+     * @param column
+     * @return
+     */
     @Override
     public boolean isCellEditable(int row, int column) {
         return column > 2;
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @param row
+     * @param column
+     */
     @Override
     public void fireTableCellUpdated(int row, int column) {
         String number = getValueAt(row, NO_ALUBM_INDEX).toString();

@@ -38,7 +38,9 @@ public class StudentDataConverter {
 
     /**
      * Metoda konwertująca obiekty {@link StudentData} to tablicy dwuwymiarowej
-     * */
+     * @param studentDataCollection - Kolekcja obiektów {@link StudentData}
+     * @return
+     */
     public static Object[][] convertToViewModelData(Collection<StudentData> studentDataCollection){
         try {
             int columnsSize = 10;

@@ -12,7 +12,7 @@ import java.util.Locale;
 
 
 /**
- *
+ * Główna klasa startowa uruchamiająca aplikację okienkową.
  * */
 public class MainPanel {
     private final IFilesystemService filesystemService = new FilesystemService();
@@ -36,6 +36,10 @@ public class MainPanel {
     private JPanel actionButtonsPanel;
     private JPanel studentFormPanel;
 
+    /**
+     * Konstruktor głównej klasy inicjalizujący kontrolki
+     * @param frame - bazowe okno
+     */
     public MainPanel(JFrame frame) {
 
         try {
@@ -119,10 +123,19 @@ public class MainPanel {
         });
     }
 
+    /**
+     * Metoda wyswietlająca okno typu dialog z informacją o błędzie.
+     * @param frame - bazowe okno względem którego wyświetla się komunikat o błędzie
+     * @param e - Wyjątek który został zgłoszony przez aplikację
+     */
     private void showError(JFrame frame, Exception e) {
         JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
     }
 
+    /**
+     * TODO: Dodać opis.
+     * @throws Exception
+     */
     private void setupUi() throws Exception {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));

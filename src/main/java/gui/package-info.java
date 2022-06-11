@@ -1,5 +1,5 @@
 /**
- * Pakiet klas zawierający GUI aplikacji
+ * Pakiet klas zawierający GUI aplikacji.
  * @author Karol Ziąbski
  * */
 package gui;
