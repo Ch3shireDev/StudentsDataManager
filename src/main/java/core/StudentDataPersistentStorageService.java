@@ -24,7 +24,8 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
 
     /**
      * Konstruktor. Należy podać nazwę pliku json do którego będą zapisywane dane oraz serwis systemu plików.
-     * @param filename Nazwa pliku json.
+     *
+     * @param filename          Nazwa pliku json.
      * @param filesystemService Serwis systemu plików.
      */
     public StudentDataPersistentStorageService(String filename, IFilesystemService filesystemService) {
@@ -35,6 +36,7 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
 
     /**
      * Metoda zapisująca dane do pliku wyszczególnionego w konstruktorze.
+     *
      * @param studentData Dane studentów w postaci kolekcji.
      * @throws Exception Wyjątek w przypadku błędu zapisu danych.
      */
@@ -45,7 +47,8 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
                     .writerWithDefaultPrettyPrinter()
                     .writeValueAsString(studentData);
             filesystemService.write(filename, jsonInString);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new Exception(String.format(LocalizationUtil.getText("saveErrorMessage"), e.getMessage()));
         }
     }
@@ -53,6 +56,7 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
 
     /**
      * Metoda ładująca dane studentów z pliku wyszczególnionego w konstruktorze.
+     *
      * @return Lista danych studentów.
      * @throws Exception Wyjątek w przypadku błędu odczytu danych.
      */
@@ -62,7 +66,8 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
             String json = filesystemService.read(filename);
             ObjectMapper mapper = new ObjectMapper();
             return Arrays.asList(mapper.readValue(json, StudentData[].class));
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new Exception(String.format(LocalizationUtil.getText("loadErrorMessage"), e.getMessage()));
         }
     }

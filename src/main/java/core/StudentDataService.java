@@ -13,10 +13,20 @@ import java.util.stream.Collectors;
  */
 public class StudentDataService implements IStudentDataService {
 
+    /**
+     * Kolekcja studentów w serwisie.
+     */
     private final Collection<StudentData> students = new LinkedList<>();
-    ;
+
+    /**
+     * Serwis walidujący.
+     */
     private final IStudentDataValidator validatorService;
 
+    /**
+     * Konstruktor serwisu.
+     * @param validatorService Serwis walidujący.
+     */
     public StudentDataService(IStudentDataValidator validatorService) {
         this.validatorService = validatorService;
     }

@@ -14,7 +14,8 @@ public class FilesystemService implements IFilesystemService {
     /**
      * Konstruktor domyślny serwisu.
      */
-    public FilesystemService(){}
+    public FilesystemService() {
+    }
 
     /**
      * @param filename Nazwa pliku.
@@ -26,7 +27,8 @@ public class FilesystemService implements IFilesystemService {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
             writer.write(content);
             writer.flush();
-        };
+        }
+        ;
     }
 
     /**

@@ -10,6 +10,7 @@ public interface IStudentDataValidator {
 
     /**
      * Zwraca informacje na temat problemów z obiektem danych studenta.
+     *
      * @param studentData Dane studenta do walidacji.
      * @return Lista powiadomień o błędach.
      */

@@ -40,6 +40,7 @@ public interface IStudentDataService {
 
     /**
      * Zapisuje dane studentów.
+     *
      * @param storageService Moduł przechowujący dane studenta
      * @throws Exception Wyjątek w przypadku błędu zapisu w zewnętrznym serwisie.
      */

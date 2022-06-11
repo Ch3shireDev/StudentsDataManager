@@ -10,16 +10,46 @@ import java.io.Serializable;
  */
 public class StudentData implements Serializable {
 
+    /**
+     * Numer albumu studenta.
+     */
     private String album;
+    /**
+     * Imię i nazwisko studenta.
+     */
     private String name;
+    /**
+     * Numer grupy studenta.
+     */
     private String group;
+    /**
+     * Liczba punktów z pracy domowej.
+     */
     private int homeworkPoints;
+    /**
+     * Liczba punktów z aktywności.
+     */
     private int activityPoints;
+    /**
+     * Liczba punktów z projektu.
+     */
     private int projectPoints;
+    /**
+     * Liczba punktów z pierwszego kolokwium.
+     */
     private int test1Points;
+    /**
+     * Liczba punktów z drugiego kolokwium.
+     */
     private int test2Points;
+    /**
+     * Liczba punktów z egzaminu.
+     */
     private int examPoints;
 
+    /**
+     * Konstruktor domyślny danych studenta.
+     */
     public StudentData() {
     }
 
@@ -64,15 +94,16 @@ public class StudentData implements Serializable {
 
     /**
      * Konstruktor
-     * @param album Numer albumu.
-     * @param name Imię i nazwisko.
-     * @param group Numer grupy.
+     *
+     * @param album          Numer albumu.
+     * @param name           Imię i nazwisko.
+     * @param group          Numer grupy.
      * @param homeworkPoints Liczba punktów z pracy domowej.
      * @param activityPoints Liczba punktów z aktywności.
-     * @param projectPoints Liczba punktów z projektu.
-     * @param test1Points Liczba punktów z pierwszego kolokwium.
-     * @param test2Points Liczba punktów z drugiego kolokwium
-     * @param examPoints Liczba punktów z egzaminu.
+     * @param projectPoints  Liczba punktów z projektu.
+     * @param test1Points    Liczba punktów z pierwszego kolokwium.
+     * @param test2Points    Liczba punktów z drugiego kolokwium
+     * @param examPoints     Liczba punktów z egzaminu.
      */
     public StudentData(String album, String name, String group, int homeworkPoints, int activityPoints, int projectPoints, int test1Points, int test2Points, int examPoints) {
         this.album = album;

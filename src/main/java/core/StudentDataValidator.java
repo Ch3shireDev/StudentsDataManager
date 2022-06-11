@@ -14,6 +14,12 @@ public class StudentDataValidator implements IStudentDataValidator {
 
 
     /**
+     * Konstruktor serwisu walidującego.
+     */
+    public StudentDataValidator() {
+    }
+
+    /**
      * Waliduje dane studenta.
      *
      * @param studentData Dane studenta.
@@ -148,12 +154,18 @@ public class StudentDataValidator implements IStudentDataValidator {
         if (!validateAlbum(studentData.getAlbum())) list.add(LocalizationUtil.getText("invalidAlbumMessage"));
         if (!validateName(studentData.getName())) list.add(LocalizationUtil.getText("invalidNameMessage"));
         if (!validateGroup(studentData.getGroup())) list.add(LocalizationUtil.getText("invalidGroupMessage"));
-        if (!validateHomeworkPoints(studentData.getHomeworkPoints())) list.add(LocalizationUtil.getText("invalidHomeworkPointsMessage"));
-        if (!validateActivityPoints(studentData.getActivityPoints())) list.add(LocalizationUtil.getText("invalidActivityPointsMessage"));
-        if (!validateProjectPoints(studentData.getProjectPoints())) list.add(LocalizationUtil.getText("invalidProjectPointsMessage"));
-        if (!validateTest1Points(studentData.getTest1Points())) list.add(LocalizationUtil.getText("invalidTest1PointsMessage"));
-        if (!validateTest2Points(studentData.getTest2Points())) list.add(LocalizationUtil.getText("invalidTest2PointsMessage"));
-        if (!validateExamPoints(studentData.getExamPoints())) list.add(LocalizationUtil.getText("invalidExamPointsMessage"));
+        if (!validateHomeworkPoints(studentData.getHomeworkPoints()))
+            list.add(LocalizationUtil.getText("invalidHomeworkPointsMessage"));
+        if (!validateActivityPoints(studentData.getActivityPoints()))
+            list.add(LocalizationUtil.getText("invalidActivityPointsMessage"));
+        if (!validateProjectPoints(studentData.getProjectPoints()))
+            list.add(LocalizationUtil.getText("invalidProjectPointsMessage"));
+        if (!validateTest1Points(studentData.getTest1Points()))
+            list.add(LocalizationUtil.getText("invalidTest1PointsMessage"));
+        if (!validateTest2Points(studentData.getTest2Points()))
+            list.add(LocalizationUtil.getText("invalidTest2PointsMessage"));
+        if (!validateExamPoints(studentData.getExamPoints()))
+            list.add(LocalizationUtil.getText("invalidExamPointsMessage"));
         return list;
 
     }
