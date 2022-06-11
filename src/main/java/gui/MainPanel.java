@@ -47,7 +47,7 @@ public class MainPanel {
         setupUi(frame);
         TableModel tableModel = null;
         try {
-            tableModel = new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
+            tableModel = new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
         } catch (Exception e) {
             showError(frame, e);
         }
@@ -57,13 +57,17 @@ public class MainPanel {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
             LocalizationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
             try {
-                table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+                table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
             } catch (Exception e) {
                 showError(frame, e);
             }
             langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
             loadbutton.setText(LocalizationUtil.getText("loadButton"));
             saveButton.setText(LocalizationUtil.getText("saveButton"));
+            albumLabel.setText(LocalizationUtil.getText("studentTable.header.noAlbum"));
+            personLabel.setText(LocalizationUtil.getText("studentTable.header.person"));
+            groupLabel.setText(LocalizationUtil.getText("studentTable.header.group"));
+            addStudentbtn.setText(LocalizationUtil.getText("addStudentBtn"));
         });
         loadbutton.addActionListener(event -> {
             JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
@@ -75,10 +79,14 @@ public class MainPanel {
             if (ACTION_RESULT == JFileChooser.APPROVE_OPTION) {
                 // set the label to the path of the selected file
                 String filename = fileChooser.getSelectedFile().getAbsolutePath();
+                if (!filename.endsWith(".json")) {
+                    filename = filename.concat(".json");
+                }
+
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.load(storageService);
-                    table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+                    table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
                 } catch (Exception e) {
                     showError(frame, e);
                 }
@@ -95,6 +103,10 @@ public class MainPanel {
             if (ACTION_RESULT == JFileChooser.APPROVE_OPTION) {
                 // set the label to the path of the selected file
                 String filename = fileChooser.getSelectedFile().getAbsolutePath();
+                if (!filename.endsWith(".json")) {
+                    filename = filename.concat(".json");
+                }
+
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.save(storageService);
@@ -114,10 +126,14 @@ public class MainPanel {
             StudentData studentData = new StudentData(album, person, group);
             try {
                 studentDataService.add(studentData);
-                table1.setModel(new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+                table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
             } catch (Exception e) {
                 showError(frame, e);
             }
+
+            albumNoTF.setText("");
+            personTF.setText("");
+            groupTF.setText("");
         });
     }
 
@@ -125,10 +141,10 @@ public class MainPanel {
      * Metoda wyswietlająca okno typu dialog z informacją o błędzie.
      *
      * @param frame - bazowe okno względem którego wyświetla się komunikat o błędzie
-     * @param e     - Wyjątek który został zgłoszony przez aplikację
+     * @param exception     - Wyjątek który został zgłoszony przez aplikację
      */
-    private void showError(JFrame frame, Exception e) {
-        JOptionPane.showMessageDialog(frame, e.getMessage(), "Błąd!", 0);
+    private void showError(JFrame frame, Exception exception) {
+        JOptionPane.showMessageDialog(frame, exception.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
     }
 
     /**
@@ -140,12 +156,12 @@ public class MainPanel {
     private void setupUi(JFrame frame) {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setMinimumSize(new Dimension(1200, 1000));
+        mainPanel.setMinimumSize(new Dimension(1400, 1200));
         initActionButtonsPanel();
         initLanguageSelectPanel();
         initNewStudentFormPanel();
         try {
-            initTable();
+            initTable(frame);
         } catch (Exception e) {
             showError(frame, e);
         }
@@ -162,9 +178,10 @@ public class MainPanel {
 
     /**
      * Inicjalizacja panelu zawierającego scrollowaną tabelę z danhymi studentów
+     * @param frame Bazowe okno aplikacji
      */
-    private void initTable() throws Exception {
-        TableModel tableModel = new StudentDataViewTableModel(StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
+    private void initTable(JFrame frame) throws Exception {
+        TableModel tableModel = new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
 
         table1 = new JTable(tableModel);
         table1.setAutoCreateRowSorter(true);
@@ -181,7 +198,7 @@ public class MainPanel {
                 Locale.forLanguageTag("pl-PL").getLanguage(),
                 Locale.forLanguageTag("en-EN").getLanguage(),
         });
-        langSelect.setSelectedIndex(Locale.getDefault().equals(Locale.ENGLISH) ? 1 : 0);
+        langSelect.setSelectedIndex(Locale.getDefault().equals(Locale.forLanguageTag("pl-PL")) ? 0 : 1);
         langSelectLabel = new JLabel(LocalizationUtil.getText("langSelectLabel"));
         langSelectPanel.add(langSelectLabel);
         langSelectPanel.add(langSelect);

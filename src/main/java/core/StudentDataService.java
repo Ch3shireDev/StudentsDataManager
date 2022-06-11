@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class StudentDataService implements IStudentDataService {
 
     private final Collection<StudentData> students = new LinkedList<>();
-    ;
+
     private final IStudentDataValidator validatorService;
 
     public StudentDataService(IStudentDataValidator validatorService) {
@@ -67,9 +67,12 @@ public class StudentDataService implements IStudentDataService {
      *
      * @param studentData Dane studenta.
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
+     * @throws ValidationException Wyjątek w przypadku wprowadzenia niepoprawnych danych.
      */
     @Override
     public void update(StudentData studentData) throws Exception {
+        if (!validate(studentData)) throw new ValidationException(LocalizationUtil.getText("invalidData"));
+
         String album = studentData.getAlbum();
         StudentData student = get(album);
         student.set(studentData);
