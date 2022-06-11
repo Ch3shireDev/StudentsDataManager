@@ -7,6 +7,7 @@ public class ValidationException extends Exception {
 
     /**
      * Konstruktor.
+     *
      * @param message Informacja o błędzie.
      */
     public ValidationException(String message) {

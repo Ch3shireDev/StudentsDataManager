@@ -1,8 +1,8 @@
 package gui.model;
 
+import common.LocalizationUtil;
 import core.IStudentDataService;
 import core.StudentData;
-import common.LocalizationUtil;
 import gui.StudentDataConverter;
 
 import javax.swing.*;
@@ -17,6 +17,7 @@ import static gui.StudentDataConverter.*;
 
 /**
  * Model danych wyświetlany w tabeli na interfejsie użytkownika
+ *
  * @author Karol Ziąbski
  */
 public class StudentDataViewTableModel extends DefaultTableModel {
@@ -38,12 +39,12 @@ public class StudentDataViewTableModel extends DefaultTableModel {
 
     /**
      * Wspólny prefix kluczy z ResourceBundle - nagłówków kolumn
-     * */
+     */
     private static final String headersLocalisationsPrefix = "studentTable.header";
 
     /**
      * Klucze nagłówków kolumn
-     * */
+     */
     private static final String[] headersKeys = {
             "noAlbum",
             "person",
@@ -59,16 +60,16 @@ public class StudentDataViewTableModel extends DefaultTableModel {
 
     /**
      * Serwis {@link IStudentDataService}
-     * */
+     */
     private final IStudentDataService service;
 
     /**
      * Bazowe okno aplikacji aby wyswietlić błąd podczas aktualizacji danych
-     * */
+     */
     private final JFrame frame;
 
     /**
-     * @param frame Bazowe okno z którego wywoływany jest model.
+     * @param frame   Bazowe okno z którego wywoływany jest model.
      * @param data    Dane studenta - do stworzenia tego obiektu można użyć {@link StudentDataConverter}
      * @param service Serwis
      */
@@ -120,7 +121,8 @@ public class StudentDataViewTableModel extends DefaultTableModel {
             service.update(data);
 
             setDataVector(StudentDataConverter.convertToViewModelData(service.getAll()), initHeaders());
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             JOptionPane.showMessageDialog(frame, e.getMessage(), LocalizationUtil.getText("invalidData"), 0);
         }
 

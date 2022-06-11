@@ -12,6 +12,7 @@ public class LocalizationUtil {
 
     /**
      * Pobiera tekst lokalizacji.
+     *
      * @param key Klucz lokalizacji.
      * @return Tekst w odpowiednim języku dla lokalizacji.
      */
@@ -22,9 +23,10 @@ public class LocalizationUtil {
 
     /**
      * Ustawia lokalizację projektu.
+     *
      * @param locale Lokalizacja.
      */
-    public static void setLocale(Locale locale){
+    public static void setLocale(Locale locale) {
         if (locale != null) {
             LocalizationUtil.locale = locale;
         }

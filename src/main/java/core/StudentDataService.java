@@ -25,6 +25,7 @@ public class StudentDataService implements IStudentDataService {
 
     /**
      * Konstruktor serwisu.
+     *
      * @param validatorService Serwis walidujący.
      */
     public StudentDataService(IStudentDataValidator validatorService) {

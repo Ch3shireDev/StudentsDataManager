@@ -1,4 +1,5 @@
 package core;
+
 import core.mockups.MockPersistentStorageService;
 import core.mockups.MockValidatorService;
 import org.junit.jupiter.api.Assertions;
@@ -139,7 +140,7 @@ class StudentDataServiceTest {
      * Sprawdzamy działanie funkcji validate - powinna ona odwoływać się do wewnętrznego serwisu IStudentDataValidator.
      */
     @Test
-    void validate() throws  Exception {
+    void validate() throws Exception {
         validationService.isUsed = false;
         service.validate(new StudentData("111"));
         Assertions.assertTrue(validationService.isUsed);

@@ -13,6 +13,7 @@ import java.util.Locale;
 
 /**
  * Główna klasa startowa uruchamiająca aplikację okienkową.
+ *
  * @author Karol Ziąbski
  */
 public class MainPanel {
@@ -47,8 +48,9 @@ public class MainPanel {
         setupUi(frame);
         TableModel tableModel = null;
         try {
-            tableModel = new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
-        } catch (Exception e) {
+            tableModel = new StudentDataViewTableModel(frame, StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
+        }
+        catch (Exception e) {
             showError(frame, e);
         }
         table1.getTableHeader().setReorderingAllowed(false);
@@ -57,8 +59,9 @@ public class MainPanel {
             String lang = langSelect.getItemAt(langSelect.getSelectedIndex());
             LocalizationUtil.setLocale(Locale.forLanguageTag(lang.toLowerCase(Locale.ROOT)));
             try {
-                table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
-            } catch (Exception e) {
+                table1.setModel(new StudentDataViewTableModel(frame, StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+            }
+            catch (Exception e) {
                 showError(frame, e);
             }
             langSelectLabel.setText(LocalizationUtil.getText("langSelectLabel"));
@@ -86,8 +89,9 @@ public class MainPanel {
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.load(storageService);
-                    table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
-                } catch (Exception e) {
+                    table1.setModel(new StudentDataViewTableModel(frame, StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+                }
+                catch (Exception e) {
                     showError(frame, e);
                 }
             }
@@ -110,7 +114,8 @@ public class MainPanel {
                 IStudentDataPersistentStorageService storageService = new StudentDataPersistentStorageService(filename, filesystemService);
                 try {
                     studentDataService.save(storageService);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     showError(frame, e);
                 }
             }
@@ -126,22 +131,23 @@ public class MainPanel {
             StudentData studentData = new StudentData(album, person, group);
             try {
                 studentDataService.add(studentData);
-                table1.setModel(new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
-            } catch (Exception e) {
+                table1.setModel(new StudentDataViewTableModel(frame, StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService));
+                albumNoTF.setText("");
+                personTF.setText("");
+                groupTF.setText("");
+            }
+            catch (Exception e) {
                 showError(frame, e);
             }
 
-            albumNoTF.setText("");
-            personTF.setText("");
-            groupTF.setText("");
         });
     }
 
     /**
      * Metoda wyswietlająca okno typu dialog z informacją o błędzie.
      *
-     * @param frame - bazowe okno względem którego wyświetla się komunikat o błędzie
-     * @param exception     - Wyjątek który został zgłoszony przez aplikację
+     * @param frame     - bazowe okno względem którego wyświetla się komunikat o błędzie
+     * @param exception - Wyjątek który został zgłoszony przez aplikację
      */
     private void showError(JFrame frame, Exception exception) {
         JOptionPane.showMessageDialog(frame, exception.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
@@ -162,7 +168,8 @@ public class MainPanel {
         initNewStudentFormPanel();
         try {
             initTable(frame);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             showError(frame, e);
         }
 
@@ -178,10 +185,11 @@ public class MainPanel {
 
     /**
      * Inicjalizacja panelu zawierającego scrollowaną tabelę z danhymi studentów
+     *
      * @param frame Bazowe okno aplikacji
      */
     private void initTable(JFrame frame) throws Exception {
-        TableModel tableModel = new StudentDataViewTableModel(frame,StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
+        TableModel tableModel = new StudentDataViewTableModel(frame, StudentDataConverter.convertToViewModelData(studentDataService.getAll()), studentDataService);
 
         table1 = new JTable(tableModel);
         table1.setAutoCreateRowSorter(true);
@@ -239,8 +247,9 @@ public class MainPanel {
 
     /**
      * Metoda uruchamiająca działania aplikacji
+     *
      * @param args Parametry uruchomieniowe (opcjonalne)
-     * */
+     */
     public static void main(String[] args) {
         JFrame frame = new JFrame("Student Data Manager");
         MainPanel mainPanel1 = new MainPanel(frame);

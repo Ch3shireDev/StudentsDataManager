@@ -28,7 +28,6 @@ public class FilesystemService implements IFilesystemService {
             writer.write(content);
             writer.flush();
         }
-        ;
     }
 
     /**
