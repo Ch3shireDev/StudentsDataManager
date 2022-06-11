@@ -16,6 +16,7 @@ import static gui.StudentDataConverter.*;
 
 /**
  * Model danych wyświetlany w tabeli na interfejsie użytkownika
+ * @author Karol Ziąbski
  */
 public class StudentDataViewTableModel extends DefaultTableModel {
 

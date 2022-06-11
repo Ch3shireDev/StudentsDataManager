@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 /**
  * Klasa pomocnicza konwertująca obiekty {@link StudentData}
+ * @author Karol Ziąbski
  * */
 public class StudentDataConverter {
 

@@ -13,6 +13,7 @@ import java.util.Locale;
 
 /**
  * Główna klasa startowa uruchamiająca aplikację okienkową.
+ * @author Karol Ziąbski
  */
 public class MainPanel {
     private final IFilesystemService filesystemService = new FilesystemService();
