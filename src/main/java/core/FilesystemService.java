@@ -12,6 +12,11 @@ import java.nio.file.Paths;
 public class FilesystemService implements IFilesystemService {
 
     /**
+     * Konstruktor domyślny serwisu.
+     */
+    public FilesystemService(){}
+
+    /**
      * @param filename Nazwa pliku.
      * @param content  Zawartość pliku.
      * @throws IOException Wyjątek wyrzucany w przypadku błędu zapisu do pliku.
