@@ -64,25 +64,25 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     private final IStudentDataService service;
 
     /**
-     * Bazowe okno aplikacji aby wyswietlić błąd podczas aktualizacji danych
+     * Bazowe okno aplikacji, aby wyświetlić błąd podczas aktualizacji danych
      */
-    private final JFrame frame;
+    private final JFrame parentFrame;
 
     /**
-     * @param frame   Bazowe okno z którego wywoływany jest model.
-     * @param data    Dane studenta - do stworzenia tego obiektu można użyć {@link StudentDataConverter}
+     * @param frame   Bazowe okno, z którego wywoływany jest model.
+     * @param data    Dane studenta — do stworzenia tego obiektu można użyć {@link StudentDataConverter}
      * @param service Serwis
      */
     public StudentDataViewTableModel(JFrame frame, Object[][] data, IStudentDataService service) {
         super(data, initHeaders());
         this.service = service;
-        this.frame = frame;
+        this.parentFrame = frame;
     }
 
     /**
      * Inicjalizacja nagłówków tabeli wykorzystująca tłumaczenia.
      *
-     * @return Tablica nagłówkow przetłumaczona na aktualny {@link java.util.Locale} który jest w klasie {@link LocalizationUtil}
+     * @return Tablica nagłówków przetłumaczona na aktualny {@link java.util.Locale} który jest w klasie {@link LocalizationUtil}
      */
     private static String[] initHeaders() {
         List<String> headers = new LinkedList<>();
@@ -107,9 +107,9 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     /**
      * Metoda wykonujaca się na aktualizację danych w komórce tabeli
      *
-     * @param aValue nowa wartość które będzoe wpipsywana do komórki
-     * @param row    - wiersz w którym zaszła aktualizacja
-     * @param column - kolumna w której zaszła aktualizacja
+     * @param aValue nowa wartość, która będzie wpisywana do komórki
+     * @param row    - wiersz, w którym zaszła aktualizacja
+     * @param column - kolumna, w której zaszła aktualizacja
      */
     @Override
     public void setValueAt(Object aValue, int row, int column) {
@@ -123,7 +123,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
             setDataVector(StudentDataConverter.convertToViewModelData(service.getAll()), initHeaders());
         }
         catch (Exception e) {
-            JOptionPane.showMessageDialog(frame, e.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(parentFrame, e.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
         }
     }
 }
