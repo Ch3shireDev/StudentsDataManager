@@ -16,21 +16,21 @@ import java.util.function.BiConsumer;
 import static gui.StudentDataConverter.*;
 
 /**
- * Model danych wyświetlany w tabeli na interfejsie użytkownika
+ * Model danych wyświetlany w tabeli na interfejsie użytkownika.
  *
  * @author Karol Ziąbski
  */
 public class StudentDataViewTableModel extends DefaultTableModel {
 
     /**
-     * Mapowanie kolumn i setterów aby ułatwić edytowanie danych w kolumnach
+     * Mapowanie kolumn i setterów aby ułatwić edytowanie danych w kolumnach.
      */
     private static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
 
     static {
         fieldMapping.put(GROUP_INDEX, (studentData, group) -> studentData.setGroup(group.toString()));
-        fieldMapping.put(COLLOQIUM1_INDEX, (studentData, points) -> studentData.setTest1Points(Integer.parseInt(points.toString())));
-        fieldMapping.put(COLLOQIUM2_INDEX, (studentData, points) -> studentData.setTest2Points(Integer.parseInt(points.toString())));
+        fieldMapping.put(TEST1_INDEX, (studentData, points) -> studentData.setTest1Points(Integer.parseInt(points.toString())));
+        fieldMapping.put(TEST2_INDEX, (studentData, points) -> studentData.setTest2Points(Integer.parseInt(points.toString())));
         fieldMapping.put(EXAM_INDEX, (studentData, points) -> studentData.setExamPoints(Integer.parseInt(points.toString())));
         fieldMapping.put(PROJECT_INDEX, (studentData, points) -> studentData.setProjectPoints(Integer.parseInt(points.toString())));
         fieldMapping.put(HOMEWORK_INDEX, (studentData, points) -> studentData.setHomeworkPoints(Integer.parseInt(points.toString())));
@@ -38,12 +38,12 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * Wspólny prefix kluczy z ResourceBundle - nagłówków kolumn
+     * Wspólny prefix kluczy z ResourceBundle - nagłówków kolumn.
      */
     private static final String headersLocalisationsPrefix = "studentTable.header";
 
     /**
-     * Klucze nagłówków kolumn
+     * Klucze nagłówków kolumn.
      */
     private static final String[] headersKeys = {
             "noAlbum",
@@ -64,7 +64,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     private final IStudentDataService service;
 
     /**
-     * Bazowe okno aplikacji, aby wyświetlić błąd podczas aktualizacji danych
+     * Bazowe okno aplikacji, aby wyświetlić błąd podczas aktualizacji danych.
      */
     private final JFrame parentFrame;
 
@@ -93,7 +93,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * Nadpisanie bazowej metody celem zablokowania edycji kolumn: album, grupa, imię i nazwisko
+     * Nadpisanie bazowej metody celem zablokowania edycji kolumn: album, grupa, imię i nazwisko.
      *
      * @param row    - wiersz w tabeli
      * @param column - kolumna w tabeli
@@ -105,7 +105,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * Metoda wykonujaca się na aktualizację danych w komórce tabeli
+     * Metoda wykonująca się na aktualizację danych w komórce tabeli.
      *
      * @param aValue nowa wartość, która będzie wpisywana do komórki
      * @param row    - wiersz, w którym zaszła aktualizacja

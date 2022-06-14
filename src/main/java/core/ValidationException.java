@@ -1,7 +1,7 @@
 package core;
 
 /**
- * Wyjątek wyrzucany w przypadku błędu walidacji, np. przy dodawaniu nowych danych studenta.
+ * Wyjątek wyrzucany w przypadku błędu walidacji, przykładowo przy dodawaniu nowych danych studenta.
  */
 public class ValidationException extends Exception {
 

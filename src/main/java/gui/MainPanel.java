@@ -92,14 +92,6 @@ public class MainPanel {
      */
     private JButton addStudentBtn;
     /**
-     * Panel selekcji języka.
-     */
-    private JPanel langSelectPanel;
-    /**
-     * Panel przycisków odczytu i zapisu danych.
-     */
-    private JPanel actionButtonsPanel;
-    /**
      * Panel formularza danych nowego studenta.
      */
     private JPanel studentFormPanel;
@@ -116,8 +108,14 @@ public class MainPanel {
 
             frame.setMinimumSize(new Dimension(800, 600));
             mainPanel = getMainPanel();
-            actionButtonsPanel = getActionButtonsPanel();
-            langSelectPanel = getLanguageSelectPanel();
+            /**
+             * Panel przycisków odczytu i zapisu danych.
+             */
+            JPanel actionButtonsPanel = getActionButtonsPanel();
+            /**
+             * Panel selekcji języka.
+             */
+            JPanel langSelectPanel = getLanguageSelectPanel();
             studentFormPanel = getNewStudentFormPanel();
 
             table = new JTable(getTableModel());
@@ -307,8 +305,8 @@ public class MainPanel {
     /**
      * Metoda wyświetlająca okno typu dialog z informacją o błędzie.
      *
-     * @param frame     - bazowe okno, względem którego wyświetla się komunikat o błędzie
-     * @param exception - Wyjątek, który został zgłoszony przez aplikację
+     * @param frame     - bazowe okno, względem którego wyświetla się komunikat o błędzie.
+     * @param exception - Wyjątek, który został zgłoszony przez aplikację.
      */
     private void showError(JFrame frame, Exception exception) {
         JOptionPane.showMessageDialog(frame, exception.getMessage(), LocalizationUtil.getText("window.error"), JOptionPane.ERROR_MESSAGE);
@@ -339,7 +337,7 @@ public class MainPanel {
     }
 
     /**
-     * Inicjalizacja panelu zawierającego przycisk typu ComboBox do zmiany języka aplikacji
+     * Inicjalizacja panelu zawierającego przycisk typu ComboBox do zmiany języka aplikacji.
      */
     private JPanel getLanguageSelectPanel() {
         JPanel langSelectPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));

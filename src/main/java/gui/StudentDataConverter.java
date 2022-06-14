@@ -28,27 +28,27 @@ public class StudentDataConverter {
      */
     public static final int GROUP_INDEX = 2;
     /**
-     * Indeks kolumny liczby punktów za pracę domową wyświetlany w tabeli
+     * Indeks kolumny liczby punktów za pracę domową wyświetlany w tabeli.
      */
     public static final int HOMEWORK_INDEX = 3;
     /**
-     * Indeks kolumny Liczby punktów za aktywność wyświetlany w tabeli
+     * Indeks kolumny Liczby punktów za aktywność wyświetlany w tabeli.
      */
     public static final int ACTIVITY_INDEX = 4;
     /**
-     * Indeks kolumny Liczby punktów za projekt wyswietlany w tabeli
+     * Indeks kolumny Liczby punktów za projekt wyświetlany w tabeli.
      */
     public static final int PROJECT_INDEX = 5;
     /**
-     * Indeks kolumny Liczby punktów za Kolokwium 1 wyświetlany w tabeli
+     * Indeks kolumny Liczby punktów za Kolokwium 1 wyświetlany w tabeli.
      */
-    public static final int COLLOQIUM1_INDEX = 6;
+    public static final int TEST1_INDEX = 6;
     /**
-     * Indeks kolumny Liczby punktów za Kolokwium 2 wyświetlany w tabeli
+     * Indeks kolumny Liczby punktów za Kolokwium 2 wyświetlany w tabeli.
      */
-    public static final int COLLOQIUM2_INDEX = 7;
+    public static final int TEST2_INDEX = 7;
     /**
-     * Indeks kolumny Liczby punktów za egzamin wyświetlany w tabeli
+     * Indeks kolumny Liczby punktów za egzamin wyświetlany w tabeli.
      */
     public static final int EXAM_INDEX = 8;
     /**
@@ -65,8 +65,8 @@ public class StudentDataConverter {
         fieldMapping.put(NO_ALUBM_INDEX, StudentData::getAlbum);
         fieldMapping.put(PERSON_INDEX, StudentData::getName);
         fieldMapping.put(GROUP_INDEX, StudentData::getGroup);
-        fieldMapping.put(COLLOQIUM1_INDEX, StudentData::getTest1Points);
-        fieldMapping.put(COLLOQIUM2_INDEX, StudentData::getTest2Points);
+        fieldMapping.put(TEST1_INDEX, StudentData::getTest1Points);
+        fieldMapping.put(TEST2_INDEX, StudentData::getTest2Points);
         fieldMapping.put(EXAM_INDEX, StudentData::getExamPoints);
         fieldMapping.put(SUM_INDEX, StudentData::getSum);
         fieldMapping.put(PROJECT_INDEX, StudentData::getProjectPoints);
@@ -75,9 +75,9 @@ public class StudentDataConverter {
     }
 
     /**
-     * Metoda konwertująca obiekty {@link StudentData} to tablicy dwuwymiarowej
+     * Metoda konwertująca obiekty {@link StudentData} to tablicy dwuwymiarowej.
      *
-     * @param studentDataCollection - Kolekcja obiektów {@link StudentData}
+     * @param studentDataCollection - Kolekcja obiektów {@link StudentData}.
      * @return Wypełniona dwuwymiarowa tablica. Pusta w przypadku wystąpienia wyjątku.
      */
     public static Object[][] convertToViewModelData(Collection<StudentData> studentDataCollection) {

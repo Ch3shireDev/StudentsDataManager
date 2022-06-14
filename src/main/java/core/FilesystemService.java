@@ -33,7 +33,7 @@ public class FilesystemService implements IFilesystemService {
     /**
      * @param filename Nazwa pliku.
      * @return Zawartość pliku.
-     * @throws IOException Wyjątek wyrzucany w przypadku będu odczytu z pliku.
+     * @throws IOException Wyjątek wyrzucany w przypadku błędu odczytu z pliku.
      */
     @Override
     public String read(String filename) throws IOException {
