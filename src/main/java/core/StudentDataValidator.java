@@ -23,7 +23,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     public boolean validate(StudentData studentData) {
         if (!validateAlbum(studentData.getAlbum())) return false;
@@ -42,7 +42,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje punkty z pracy domowej.
      *
      * @param homeworkPoints Liczba punktów z pracy domowej.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     public boolean validateHomeworkPoints(int homeworkPoints) {
         return homeworkPoints >= 0 && homeworkPoints <= 5;
@@ -52,7 +52,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje numer albumu.
      *
      * @param album Numer albumu studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateAlbum(String album) {
@@ -65,7 +65,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje imię i nazwisko studenta.
      *
      * @param name Imię i nazwisko studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateName(String name) {
@@ -78,7 +78,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje grupę studenta.
      *
      * @param group Grupa studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateGroup(String group) {
@@ -90,7 +90,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje liczbę punktów za aktywność.
      *
      * @param activityPoints Liczba punktów za aktywność.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateActivityPoints(int activityPoints) {
@@ -101,7 +101,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje liczbę punktów z projektu.
      *
      * @param projectPoints Liczba punktów z projektu.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateProjectPoints(int projectPoints) {
@@ -112,7 +112,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje liczbę punktów z pierwszego kolokwium.
      *
      * @param test1Points Liczba punktów z pierwszego kolokwium.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateTest1Points(int test1Points) {
@@ -123,7 +123,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje liczbę punktów z drugiego kolokwium.
      *
      * @param test2Points Liczba punktów z drugiego kolokwium.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateTest2Points(int test2Points) {
@@ -134,7 +134,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      * Waliduje liczbę punktów z egzaminu.
      *
      * @param examPoints Liczba punktów z egzaminu.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validateExamPoints(int examPoints) {
@@ -150,7 +150,7 @@ public class StudentDataValidator implements IStudentDataValidator {
      */
     @Override
     public Collection<String> getMessages(StudentData studentData) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         if (!validateAlbum(studentData.getAlbum())) list.add(LocalizationUtil.getText("invalidAlbumMessage"));
         if (!validateName(studentData.getName())) list.add(LocalizationUtil.getText("invalidNameMessage"));
         if (!validateGroup(studentData.getGroup())) list.add(LocalizationUtil.getText("invalidGroupMessage"));

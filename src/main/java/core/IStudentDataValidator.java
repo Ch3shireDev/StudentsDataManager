@@ -20,7 +20,7 @@ public interface IStudentDataValidator {
      * Waliduje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validate(StudentData studentData);
 
@@ -28,7 +28,7 @@ public interface IStudentDataValidator {
      * Waliduje numer albumu.
      *
      * @param album Numer albumu studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateAlbum(String album);
 
@@ -36,7 +36,7 @@ public interface IStudentDataValidator {
      * Waliduje imię i nazwisko studenta.
      *
      * @param name Imię i nazwisko studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateName(String name);
 
@@ -44,7 +44,7 @@ public interface IStudentDataValidator {
      * Waliduje grupę studenta.
      *
      * @param group Grupa studenta.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateGroup(String group);
 
@@ -53,7 +53,7 @@ public interface IStudentDataValidator {
      * Waliduje punkty z pracy domowej.
      *
      * @param homeworkPoints Liczba punktów z pracy domowej.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateHomeworkPoints(int homeworkPoints);
 
@@ -61,7 +61,7 @@ public interface IStudentDataValidator {
      * Waliduje liczbę punktów za aktywność.
      *
      * @param activityPoints Liczba punktów za aktywność.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateActivityPoints(int activityPoints);
 
@@ -69,7 +69,7 @@ public interface IStudentDataValidator {
      * Waliduje liczbę punktów z projektu.
      *
      * @param projectPoints Liczba punktów z projektu.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateProjectPoints(int projectPoints);
 
@@ -77,7 +77,7 @@ public interface IStudentDataValidator {
      * Waliduje liczbę punktów z pierwszego kolokwium.
      *
      * @param test1Points Liczba punktów z pierwszego kolokwium.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateTest1Points(int test1Points);
 
@@ -85,7 +85,7 @@ public interface IStudentDataValidator {
      * Waliduje liczbę punktów z drugiego kolokwium.
      *
      * @param test2Points Liczba punktów z drugiego kolokwium.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateTest2Points(int test2Points);
 
@@ -93,7 +93,7 @@ public interface IStudentDataValidator {
      * Waliduje liczbę punktów z egzaminu.
      *
      * @param examPoints Liczba punktów z egzaminu.
-     * @return Prawda jeśli dane są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validateExamPoints(int examPoints);
 }

@@ -17,7 +17,7 @@ public interface IFilesystemService {
     /**
      * @param filename Nazwa pliku.
      * @return Zawartość pliku.
-     * @throws IOException Wyjątek wyrzucany w przypadku będu odczytu z pliku.
+     * @throws IOException Wyjątek wyrzucany w przypadku błędu odczytu z pliku.
      */
     String read(String filename) throws IOException;
 }

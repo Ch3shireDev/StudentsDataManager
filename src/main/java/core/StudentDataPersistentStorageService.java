@@ -23,7 +23,7 @@ public class StudentDataPersistentStorageService implements IStudentDataPersiste
     private final String filename;
 
     /**
-     * Konstruktor. Należy podać nazwę pliku json do którego będą zapisywane dane oraz serwis systemu plików.
+     * Konstruktor. Należy podać nazwę pliku json, do którego będą zapisywane dane oraz serwis systemu plików.
      *
      * @param filename          Nazwa pliku json.
      * @param filesystemService Serwis systemu plików.

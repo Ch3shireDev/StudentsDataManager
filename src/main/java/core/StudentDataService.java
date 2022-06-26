@@ -39,7 +39,7 @@ public class StudentDataService implements IStudentDataService {
      *
      * @param album Numer albumu studenta.
      * @return Dane studenta.
-     * @throws Exception Wyjątek wyrzucany w przypadku braku numeru studenta, lub błędu wyszukiwania danych.
+     * @throws Exception Wyjątek wyrzucany w przypadku braku numeru studenta lub błędu wyszukiwania danych.
      */
     public StudentData get(String album) throws Exception {
         Optional<StudentData> sd = students.stream().filter(s -> Objects.equals(s.getAlbum(), album)).findFirst();
@@ -115,10 +115,10 @@ public class StudentDataService implements IStudentDataService {
     }
 
     /**
-     * Sprawdza czy istnieją dane studenta o podanym numerze albumu.
+     * Sprawdza, czy istnieją dane studenta o podanym numerze albumu.
      *
      * @param album Numer albumu.
-     * @return Prawda jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
      */
     public boolean exists(String album) {
         return students.stream().anyMatch(studentData1 -> Objects.equals(studentData1.getAlbum(), album));
@@ -137,7 +137,7 @@ public class StudentDataService implements IStudentDataService {
         validateStudentDataWithErrorMessages(studentData);
         String album = studentData.getAlbum();
         if (exists(album)) {
-            throw new ValidationException(String.format(String.format(LocalizationUtil.getText("studentExists"), album)));
+            throw new ValidationException(String.format(LocalizationUtil.getText("studentExists"), album));
         }
         students.add(studentData);
     }
@@ -171,7 +171,7 @@ public class StudentDataService implements IStudentDataService {
      * Waliduje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
     @Override
     public boolean validate(StudentData studentData) {

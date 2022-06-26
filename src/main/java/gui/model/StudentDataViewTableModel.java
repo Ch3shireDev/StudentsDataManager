@@ -23,7 +23,7 @@ import static gui.StudentDataConverter.*;
 public class StudentDataViewTableModel extends DefaultTableModel {
 
     /**
-     * Mapowanie kolumn i setterów aby ułatwić edytowanie danych w kolumnach.
+     * Mapowanie kolumn i setterów, aby ułatwić edytowanie danych w kolumnach.
      */
     private static final Map<Integer, BiConsumer<StudentData, Object>> fieldMapping = new HashMap<>();
 
@@ -38,7 +38,7 @@ public class StudentDataViewTableModel extends DefaultTableModel {
     }
 
     /**
-     * Wspólny prefix kluczy z ResourceBundle - nagłówków kolumn.
+     * Wspólny prefix kluczy z ResourceBundle — nagłówków kolumn.
      */
     private static final String headersLocalisationsPrefix = "studentTable.header";
 

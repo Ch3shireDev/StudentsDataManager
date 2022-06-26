@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Calendar;
 import java.util.Collection;
 
 /**
@@ -34,7 +33,7 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdza poprawność działania funkcji getAll().
+     * Sprawdza poprawność działania funkcji getAll ().
      * Funkcja powinna zwracać kopię danych trzech studentów.
      * Nie powinno być możliwe modyfikowanie danych studentów z bazy danych.
      *
@@ -47,6 +46,7 @@ class StudentDataServiceTest {
         Assertions.assertEquals(3, students.size());
 
         // Kasujemy dane ze zwróconej listy.
+        if (students.stream().findFirst().isEmpty()) throw new Exception();
         students.remove(students.stream().findFirst().get());
         Assertions.assertEquals(2, students.size());
 
@@ -56,6 +56,7 @@ class StudentDataServiceTest {
         Assertions.assertEquals(3, students2.size());
 
         // Wybieramy pierwszego studenta i zmieniamy jego nazwę grupy.
+        if (students2.stream().findFirst().isEmpty()) throw new Exception();
         StudentData student = students2.stream().findFirst().get();
         String group = student.getGroup();
         student.setGroup("XXX");
@@ -63,12 +64,13 @@ class StudentDataServiceTest {
         // Po ponownym pobraniu danych student nie powinien mieć zmienionej grupy.
         // Zwrócone dane są kopią danych z serwisu. Użytkownik nie ma bezpośredniego dostępu do listy studentów.
         Collection<StudentData> students3 = service.getAll();
+        if (students3.stream().findFirst().isEmpty()) throw new Exception();
         StudentData student2 = students3.stream().findFirst().get();
         Assertions.assertEquals(group, student2.getGroup());
     }
 
     /**
-     * Sprawdzamy dzialanie funkcji update - powinna pozwalać na modyfikację nazwiska studenta.
+     * Sprawdzamy działanie funkcji update — powinna pozwalać na modyfikację nazwiska studenta.
      *
      * @throws Exception Standardowy wyjątek.
      */
@@ -80,7 +82,7 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdzamy działanie funkcji delete - powinna kasować dane studenta z serwisu.
+     * Sprawdzamy działanie funkcji delete — powinna kasować dane studenta z serwisu.
      *
      * @throws Exception Standardowy wyjątek.
      */
@@ -92,7 +94,7 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdzamy działanie funkcji add - powinna dodawać dane nowego studenta.
+     * Sprawdzamy działanie funkcji add — powinna dodawać dane nowego studenta.
      * Powinna też zwracać błąd w przypadku próby dodania dwa razy danych studenta o tym samym numerze albumu.
      *
      * @throws Exception Standardowy wyjątek.
@@ -111,7 +113,7 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdzamy działanie funkcji save - powinna wywoływać save w serwisie preservationService.
+     * Sprawdzamy działanie funkcji save — powinna wywoływać save w serwisie preservationService.
      *
      * @throws Exception Standardowy wyjątek.
      */
@@ -123,7 +125,7 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdzamy działanie funkcji load - powinna wywoływać load w serwisie preservationService
+     * Sprawdzamy działanie funkcji load — powinna wywoływać load w serwisie preservationService
      * i przywracać zapisany stan serwisu danych studentów.
      *
      * @throws Exception Standardowy wyjątek.
@@ -138,10 +140,10 @@ class StudentDataServiceTest {
     }
 
     /**
-     * Sprawdzamy działanie funkcji validate - powinna ona odwoływać się do wewnętrznego serwisu IStudentDataValidator.
+     * Sprawdzamy działanie funkcji validate — powinna ona odwoływać się do wewnętrznego serwisu IStudentDataValidator.
      */
     @Test
-    void validate() throws Exception {
+    void validate() {
         validationService.isUsed = false;
         service.validate(new StudentData("111"));
         Assertions.assertTrue(validationService.isUsed);

@@ -49,7 +49,7 @@ public interface IStudentDataService {
     /**
      * Ładuje dane studentów.
      *
-     * @param reader Obiekt przechowywania danych z którego są czytane dane studentów.
+     * @param reader Obiekt przechowywania danych, z którego są czytane dane studentów.
      * @throws Exception Wyjątek w przypadku błędu ładowania z zewnętrznego serwisu.
      */
     void load(IStudentDataPersistentStorageService reader) throws Exception;
@@ -60,7 +60,7 @@ public interface IStudentDataService {
      *
      * @param album Numer albumu studenta.
      * @return Dane studenta.
-     * @throws Exception Wyjątek wyrzucany w przypadku braku numeru studenta, lub błędu wyszukiwania danych.
+     * @throws Exception Wyjątek wyrzucany w przypadku braku numeru studenta lub błędu wyszukiwania danych.
      */
     StudentData get(String album) throws Exception;
 
@@ -81,10 +81,10 @@ public interface IStudentDataService {
 
 
     /**
-     * Sprawdza czy istnieją dane studenta o podanym numerze albumu.
+     * Sprawdza, czy istnieją dane studenta o podanym numerze albumu.
      *
      * @param album Numer albumu.
-     * @return Prawda jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli istnieją dane studenta o podanym numerze albumu, fałsz w przeciwnym wypadku.
      * @throws Exception Wyjątek w przypadku błędu połączenia z listą studentów.
      */
     boolean exists(String album) throws Exception;
@@ -93,7 +93,7 @@ public interface IStudentDataService {
      * Waliduje dane studenta.
      *
      * @param studentData Dane studenta.
-     * @return Prawda jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
+     * @return Prawda, jeśli dane studenta są poprawne, fałsz w przeciwnym wypadku.
      */
     boolean validate(StudentData studentData);
 

@@ -80,7 +80,7 @@ public class StudentData implements Serializable {
     }
 
     /**
-     * Konstruktor obiektu Studentdata.
+     * Konstruktor obiektu StudentData.
      *
      * @param album Numer albumu (unikalny).
      * @param name  Imię i nazwisko studenta.

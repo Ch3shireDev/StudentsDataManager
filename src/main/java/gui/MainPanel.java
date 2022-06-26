@@ -108,13 +108,7 @@ public class MainPanel {
 
             frame.setMinimumSize(new Dimension(800, 600));
             mainPanel = getMainPanel();
-            /**
-             * Panel przycisków odczytu i zapisu danych.
-             */
             JPanel actionButtonsPanel = getActionButtonsPanel();
-            /**
-             * Panel selekcji języka.
-             */
             JPanel langSelectPanel = getLanguageSelectPanel();
             studentFormPanel = getNewStudentFormPanel();
 
